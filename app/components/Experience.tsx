@@ -57,6 +57,22 @@ export default function Experience() {
       }
     );
 
+    // Connector wire grows
+    gsap.fromTo(
+      ".exp-wire",
+      { scaleY: 0 },
+      {
+        scaleY: 1,
+        duration: 0.6,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: ".exp-grid",
+          start: "top 60%",
+          toggleActions: "play none none none",
+        },
+      }
+    );
+
     return () => ScrollTrigger.getAll().forEach((t) => t.kill());
   }, []);
 
@@ -99,17 +115,15 @@ export default function Experience() {
         className="exp-grid"
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gridTemplateRows: "auto auto",
+          gridTemplateColumns: "2fr 1fr",
           gap: "12px",
+          position: "relative",
         }}
       >
-        {/* ── Current role — large card, 2 cols ── */}
+        {/* ── Current role — large card ── */}
         <div
           className="exp-card"
           style={{
-            gridColumn: "span 2",
-            gridRow: "span 2",
             backgroundColor: "#171717",
             borderRadius: "14px",
             padding: "32px",
@@ -117,7 +131,7 @@ export default function Experience() {
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
-            minHeight: "280px",
+            minHeight: "240px",
             opacity: 0,
           }}
         >
@@ -175,7 +189,7 @@ export default function Experience() {
               marginTop: "24px",
             }}
           >
-            {["Sep 2023 – Present", fusionDuration, "Hybrid"].map((tag) => (
+            {["Sep 2023 – Present", fusionDuration, "Hybrid", "Chennai, India"].map((tag) => (
               <span
                 key={tag}
                 style={{
@@ -195,135 +209,192 @@ export default function Experience() {
           </div>
         </div>
 
-        {/* ── Duration card ── */}
-        <div
-          className="exp-card"
-          style={{
-            backgroundColor: "#171717",
-            borderRadius: "14px",
-            padding: "28px",
-            color: "#fff",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            opacity: 0,
-          }}
-        >
-          <span
+        {/* ── Right column: Duration + Location stacked ── */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+          {/* Duration */}
+          <div
+            className="exp-card"
             style={{
-              fontFamily: "var(--font-clash)",
-              fontSize: "clamp(2.5rem, 5vw, 4rem)",
-              fontWeight: 700,
-              lineHeight: 1,
+              flex: 1,
+              backgroundColor: "#171717",
+              borderRadius: "14px",
+              padding: "28px",
               color: "#fff",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              opacity: 0,
             }}
           >
-            {fusionDuration.split(" ")[0]}+
-          </span>
-          <span
-            style={{
-              fontSize: "13px",
-              color: "#666",
-              textTransform: "uppercase",
-              letterSpacing: "0.1em",
-              marginTop: "8px",
-            }}
-          >
-            Years
-          </span>
-        </div>
-
-        {/* ── Location card ── */}
-        <div
-          className="exp-card"
-          style={{
-            backgroundColor: "#171717",
-            borderRadius: "14px",
-            padding: "28px",
-            color: "#fff",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "flex-end",
-            opacity: 0,
-          }}
-        >
-          <span style={{ fontSize: "20px", marginBottom: "8px" }}>
-            📍
-          </span>
-          <span
-            style={{
-              fontFamily: "var(--font-clash)",
-              fontSize: "15px",
-              fontWeight: 600,
-              color: "#ccc",
-            }}
-          >
-            Chennai, India
-          </span>
-          <span style={{ fontSize: "12px", color: "#666", marginTop: "4px" }}>
-            Working globally
-          </span>
-        </div>
-
-        {/* ── Zoho — past role card ── */}
-        <div
-          className="exp-card"
-          style={{
-            gridColumn: "span 3",
-            backgroundColor: "#171717",
-            borderRadius: "14px",
-            padding: "28px 32px",
-            color: "#fff",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            opacity: 0,
-          }}
-        >
-          <div>
-            <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "8px" }}>
-              <h3
-                style={{
-                  fontFamily: "var(--font-clash)",
-                  fontSize: "20px",
-                  fontWeight: 700,
-                  margin: 0,
-                  lineHeight: 1.1,
-                }}
-              >
-                Project Trainee
-              </h3>
-              <span
-                style={{
-                  fontSize: "11px",
-                  fontWeight: 600,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.08em",
-                  padding: "4px 12px",
-                  borderRadius: "20px",
-                  backgroundColor: "rgba(255,255,255,0.08)",
-                  color: "#888",
-                }}
-              >
-                Internship
-              </span>
-            </div>
-            <p
+            <span
               style={{
-                fontSize: "14px",
-                color: "#777",
-                margin: 0,
+                fontFamily: "var(--font-clash)",
+                fontSize: "clamp(2.5rem, 5vw, 4rem)",
+                fontWeight: 700,
+                lineHeight: 1,
+                color: "#fff",
               }}
             >
-              Zoho &middot; Sep 2022 – Dec 2022 &middot; 4 mos &middot; On-site
-            </p>
+              {fusionDuration.split(" ")[0]}+
+            </span>
+            <span
+              style={{
+                fontSize: "13px",
+                color: "#666",
+                textTransform: "uppercase",
+                letterSpacing: "0.1em",
+                marginTop: "8px",
+              }}
+            >
+              Years
+            </span>
           </div>
-          <span style={{ fontSize: "13px", color: "#555", fontFamily: "var(--font-clash)" }}>
-            02
-          </span>
+
+          {/* Location */}
+          <div
+            className="exp-card"
+            style={{
+              flex: 1,
+              backgroundColor: "#171717",
+              borderRadius: "14px",
+              padding: "28px",
+              color: "#fff",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "flex-end",
+              opacity: 0,
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "var(--font-clash)",
+                fontSize: "15px",
+                fontWeight: 600,
+                color: "#ccc",
+              }}
+            >
+              Chennai, India
+            </span>
+            <span style={{ fontSize: "12px", color: "#666", marginTop: "4px" }}>
+              Working globally
+            </span>
+          </div>
         </div>
 
+        {/* ── Connector wire between cards ── */}
+        <div
+          className="exp-wire"
+          style={{
+            position: "absolute",
+            left: "60px",
+            top: "calc(100% - 12px)",
+            width: "2px",
+            height: "0",
+            zIndex: 3,
+          }}
+        />
+      </div>
+
+      {/* ── Wire connector ── */}
+      <div style={{ position: "relative", paddingLeft: "60px" }}>
+        <div
+          className="exp-wire"
+          style={{
+            position: "absolute",
+            left: "60px",
+            top: 0,
+            width: "2px",
+            height: "100%",
+            backgroundColor: "#333",
+            transformOrigin: "top",
+          }}
+        />
+        {/* Dot top */}
+        <div
+          style={{
+            position: "absolute",
+            left: "55px",
+            top: "-5px",
+            width: "12px",
+            height: "12px",
+            borderRadius: "50%",
+            backgroundColor: "#fff",
+            zIndex: 4,
+          }}
+        />
+        {/* Dot bottom */}
+        <div
+          style={{
+            position: "absolute",
+            left: "55px",
+            bottom: "-5px",
+            width: "12px",
+            height: "12px",
+            borderRadius: "50%",
+            backgroundColor: "#555",
+            zIndex: 4,
+          }}
+        />
+      </div>
+
+      {/* ── Zoho — past role card ── */}
+      <div
+        className="exp-card"
+        style={{
+          marginTop: "12px",
+          backgroundColor: "#171717",
+          borderRadius: "14px",
+          padding: "28px 32px",
+          color: "#fff",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          opacity: 0,
+          maxWidth: "calc(66.666% - 6px)",
+        }}
+      >
+        <div>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "8px" }}>
+            <h3
+              style={{
+                fontFamily: "var(--font-clash)",
+                fontSize: "20px",
+                fontWeight: 700,
+                margin: 0,
+                lineHeight: 1.1,
+              }}
+            >
+              Project Trainee
+            </h3>
+            <span
+              style={{
+                fontSize: "11px",
+                fontWeight: 600,
+                textTransform: "uppercase",
+                letterSpacing: "0.08em",
+                padding: "4px 12px",
+                borderRadius: "20px",
+                backgroundColor: "rgba(255,255,255,0.08)",
+                color: "#888",
+              }}
+            >
+              Internship
+            </span>
+          </div>
+          <p
+            style={{
+              fontSize: "14px",
+              color: "#777",
+              margin: 0,
+            }}
+          >
+            Zoho &middot; Sep 2022 &ndash; Dec 2022 &middot; 4 mos &middot; On-site
+          </p>
+        </div>
+        <span style={{ fontSize: "13px", color: "#555", fontFamily: "var(--font-clash)" }}>
+          02
+        </span>
       </div>
     </section>
   );
