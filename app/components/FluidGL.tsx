@@ -640,7 +640,6 @@ export default function FluidGL() {
         height: "100%",
         borderRadius: "inherit",
         zIndex: 1,
-        pointerEvents: "none",
       }}
     />
   );

@@ -2,8 +2,11 @@
 
 import { useEffect, useState } from "react";
 
+const EMAIL = "easwarharikaran1610@gmail.com";
+
 export default function Header() {
   const [mobile, setMobile] = useState(false);
+  const [copied, setCopied] = useState(false);
   useEffect(() => {
     const check = () => setMobile(window.innerWidth <= 768);
     check();
@@ -125,22 +128,28 @@ export default function Header() {
         )}
 
         {/* CTA button */}
-        <a
-          href="#contact"
+        <button
+          onClick={async () => {
+            await navigator.clipboard.writeText(EMAIL);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+          }}
           className="header-cta"
           style={{
-            backgroundColor: "#111",
+            backgroundColor: copied ? "#16a34a" : "#111",
             color: "#fff",
             padding: "10px 24px",
             borderRadius: "9999px",
             fontSize: "14px",
             fontWeight: 500,
-            textDecoration: "none",
             whiteSpace: "nowrap",
+            border: "none",
+            cursor: "pointer",
+            transition: "background-color 0.3s ease",
           }}
         >
-          Get in touch
-        </a>
+          {copied ? "Email copied!" : "Get in touch"}
+        </button>
       </div>
     </header>
   );

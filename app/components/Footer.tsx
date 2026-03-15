@@ -130,7 +130,18 @@ export default function Footer() {
                   WebkitClipPath: `url(#${clipId})`,
                 }}
               >
-                <div style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
+                <div
+                  style={{ position: "absolute", inset: 0, pointerEvents: "auto" }}
+                  onClickCapture={(e) => {
+                    // Hide this layer, find the real target underneath, click it, then restore
+                    const self = e.currentTarget;
+                    self.style.pointerEvents = "none";
+                    const target = document.elementFromPoint(e.clientX, e.clientY) as HTMLElement;
+                    if (target) target.click();
+                    self.style.pointerEvents = "auto";
+                    e.stopPropagation();
+                  }}
+                >
                   <FluidGL />
                 </div>
               </div>
