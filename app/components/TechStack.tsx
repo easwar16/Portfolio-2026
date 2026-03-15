@@ -9,35 +9,35 @@ gsap.registerPlugin(ScrollTrigger);
 const SECONDARY_TOOLS = [
   {
     name: "GSAP",
-    icon: "https://cdn.worldvectorlogo.com/logos/gsap-greensock.svg",
+    icon: "/icons/gsap.svg",
   },
   {
     name: "Framer Motion",
-    icon: "https://cdn.worldvectorlogo.com/logos/framer-motion.svg",
+    icon: "/icons/framer-motion.svg",
   },
   {
     name: "Tailwind CSS",
-    icon: "https://cdn.worldvectorlogo.com/logos/tailwind-css-2.svg",
+    icon: "/icons/tailwind-css.svg",
   },
   {
     name: "Three.js",
-    icon: "https://cdn.worldvectorlogo.com/logos/threejs-1.svg",
+    icon: "/icons/threejs.svg",
   },
   {
     name: "PostgreSQL",
-    icon: "https://cdn.simpleicons.org/postgresql/000000",
+    icon: "/icons/postgresql.svg",
   },
   {
     name: "Vercel",
-    icon: "https://cdn.simpleicons.org/vercel/000000",
+    icon: "/icons/vercel.svg",
   },
   {
     name: "Figma",
-    icon: "https://cdn.worldvectorlogo.com/logos/figma-icon.svg",
+    icon: "/icons/figma.svg",
   },
   {
     name: "Docker",
-    icon: "https://cdn.simpleicons.org/docker/000000",
+    icon: "/icons/docker.svg",
   },
 ];
 

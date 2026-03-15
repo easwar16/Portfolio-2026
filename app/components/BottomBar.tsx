@@ -180,11 +180,11 @@ export default function BottomBar() {
                   <div style={{ display: "flex", gap: "3px", flex: 1, minHeight: 0 }}>
                     <div style={{ flex: 1, borderRadius: "3px", overflow: "hidden" }}>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src="/gfp_banner_portfolio.png" alt="GFP" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                      <img src="/gfp_banner_portfolio.jpg" alt="GFP" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                     </div>
                     <div style={{ flex: 1, borderRadius: "3px", overflow: "hidden" }}>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src="/drawflopBanner.png" alt="Drawflow" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                      <img src="/drawflopBanner.jpg" alt="Drawflow" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                     </div>
                   </div>
                 </div>
@@ -263,7 +263,7 @@ export default function BottomBar() {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/easwar-pixel.png"
+            src="/easwar-pixel.jpg"
             alt="Easwar"
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />

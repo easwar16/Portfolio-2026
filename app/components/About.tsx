@@ -214,7 +214,7 @@ export default function About() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           className="about-img-parallax"
-          src="/easwar-pixel.png"
+          src="/easwar-pixel.jpg"
           alt="Easwar"
           style={{
             width: "100%",

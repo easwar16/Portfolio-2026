@@ -13,9 +13,9 @@ const PROJECTS = [
     type: "PRODUCT",
     year: "2026",
     tags: ["A real-time multiplayer poker game with practice mode, built for fast, casual gameplay and seamless matchmaking."],
-    image: "/gfp_banner_portfolio.png",
+    image: "/gfp_banner_portfolio.jpg",
     color: "#d4c5b0",
-    icon: "/gfp_icon.png",
+    icon: "/gfp_icon_small.png",
     github: "https://github.com/easwar16/golden-flop",
   },
   {
@@ -23,7 +23,7 @@ const PROJECTS = [
     type: "PROJECT",
     year: "2026",
     tags: ["DrawFlow is a simple, fast whiteboard for turning ideas into visuals. Sketch diagrams, map out flows, and brainstorm freely with a clean, distraction-free canvas."],
-    image: "/drawflopBanner.png",
+    image: "/drawflopBanner.jpg",
     color: "#c8a84e",
     icon: "/penIcon.svg",
     github: "https://github.com/easwar16/drawflow",
@@ -232,6 +232,7 @@ export default function Work() {
                     <video
                       ref={(el) => { videoRefs.current[project.title] = el; }}
                       src={VIDEO_PROJECTS[project.title]}
+                      preload="none"
                       muted
                       playsInline
                       loop
