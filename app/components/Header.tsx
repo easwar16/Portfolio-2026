@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import ThemeToggle from "./ThemeToggle";
 
 const EMAIL = "easwarharikaran1610@gmail.com";
 
@@ -127,7 +128,8 @@ export default function Header() {
         </div>
         )}
 
-        {/* CTA button */}
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+        <ThemeToggle />
         <button
           onClick={async () => {
             await navigator.clipboard.writeText(EMAIL);
@@ -136,8 +138,8 @@ export default function Header() {
           }}
           className="header-cta"
           style={{
-            backgroundColor: copied ? "#16a34a" : "#111",
-            color: "#fff",
+            backgroundColor: copied ? "var(--success)" : "var(--text)",
+            color: "var(--bg)",
             padding: "10px 24px",
             borderRadius: "9999px",
             fontSize: "14px",
@@ -150,6 +152,7 @@ export default function Header() {
         >
           {copied ? "Email copied!" : "Get in touch"}
         </button>
+        </div>
       </div>
     </header>
   );

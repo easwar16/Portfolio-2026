@@ -125,8 +125,11 @@ export default function FluidBackground() {
             t * 0.5
           ) + n2 + n3;
 
-          // Map noise to greyscale (range ~0.85 to 1.0 to keep it light)
-          const val = 0.88 + finalNoise * 0.12;
+          // Map noise to greyscale — adapt to theme
+          const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+          const val = isDark
+            ? 0.04 + finalNoise * 0.06  // dark: range ~0.04 to 0.10 (near black)
+            : 0.88 + finalNoise * 0.12; // light: range ~0.88 to 1.0 (near white)
           const c = Math.floor(Math.max(0, Math.min(1, val)) * 255);
 
           const idx = (y * w + x) * 4;

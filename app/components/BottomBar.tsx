@@ -154,7 +154,7 @@ export default function BottomBar() {
                 width: "72px",
                 height: "72px",
                 borderRadius: "14px",
-                backgroundColor: "#f5f5f0",
+                backgroundColor: "var(--bg)",
                 flexShrink: 0,
                 display: "flex",
                 alignItems: "center",
@@ -313,7 +313,7 @@ export default function BottomBar() {
                     paddingRight: "40px",
                   }}
                 >
-                  DEVELOPER &nbsp;·&nbsp; NEXT.JS ENTHUSIAST &nbsp;·&nbsp;
+                  DEVELOPER &nbsp;·&nbsp;
                   CREATIVE DESIGN ENGINEER &nbsp;·&nbsp; UI/UX &nbsp;·&nbsp;
                   FRONTEND &nbsp;·&nbsp; ANIMATION
                 </span>

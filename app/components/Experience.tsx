@@ -150,14 +150,14 @@ export default function Experience() {
       {mobile ? (
         /* ── Mobile layout: Current → Wire → Past → Side cards ── */
         <>
-          <div className="exp-card" style={{ backgroundColor: "#171717", borderRadius: "14px", padding: "32px", color: "#fff", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+          <div className="exp-card" style={{ backgroundColor: "var(--card-dark)", borderRadius: "14px", padding: "32px", color: "#fff", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
             <div>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "24px" }}>
                 <span style={{ fontSize: "11px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em", padding: "5px 14px", borderRadius: "20px", backgroundColor: "#fff", color: "#111" }}>Current</span>
-                <span style={{ fontSize: "13px", color: "#555", fontFamily: "var(--font-clash)" }}>01</span>
+                <span style={{ fontSize: "13px", color: "var(--text-secondary)", fontFamily: "var(--font-clash)" }}>01</span>
               </div>
               <h3 style={{ fontFamily: "var(--font-clash)", fontSize: "clamp(1.8rem, 5vw, 2.8rem)", fontWeight: 700, margin: 0, marginBottom: "8px", lineHeight: 1.05 }}>Software Developer</h3>
-              <p style={{ fontFamily: "var(--font-clash)", fontSize: "16px", fontWeight: 500, color: "#999", margin: 0 }}>Fusion Practices (Oracle Partner) &middot; Full-time</p>
+              <p style={{ fontFamily: "var(--font-clash)", fontSize: "16px", fontWeight: 500, color: "var(--text-muted)", margin: 0 }}>Fusion Practices (Oracle Partner) &middot; Full-time</p>
             </div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginTop: "24px" }}>
               {["Sep 2023 – Present", fusionDuration, "Hybrid", "Chennai, India"].map((tag) => (
@@ -167,28 +167,28 @@ export default function Experience() {
           </div>
 
           <div className="exp-wire-wrap" style={{ padding: "0 0 0 24px", height: "40px", position: "relative", marginTop: "-1px" }}>
-            <div className="exp-wire" style={{ position: "absolute", left: "24px", top: 0, bottom: 0, width: "2px", backgroundColor: "#444", transformOrigin: "top" }} />
-            <div className="exp-dot" style={{ position: "absolute", left: "19px", bottom: "-5px", width: "12px", height: "12px", borderRadius: "50%", backgroundColor: "#666", border: "2px solid var(--bg, #f5f5f0)", zIndex: 4 }} />
+            <div className="exp-wire" style={{ position: "absolute", left: "24px", top: 0, bottom: 0, width: "2px", backgroundColor: "var(--border-dark)", transformOrigin: "top" }} />
+            <div className="exp-dot" style={{ position: "absolute", left: "19px", bottom: "-5px", width: "12px", height: "12px", borderRadius: "50%", backgroundColor: "var(--text-secondary)", border: "2px solid var(--bg)", zIndex: 4 }} />
           </div>
 
-          <div className="exp-card exp-past-card" style={{ backgroundColor: "#171717", borderRadius: "14px", padding: "28px 32px", color: "#fff", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "12px" }}>
+          <div className="exp-card exp-past-card" style={{ backgroundColor: "var(--card-dark)", borderRadius: "14px", padding: "28px 32px", color: "#fff", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "12px" }}>
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "8px" }}>
                 <h3 style={{ fontFamily: "var(--font-clash)", fontSize: "20px", fontWeight: 700, margin: 0, lineHeight: 1.1 }}>Software Developer</h3>
               </div>
               <p style={{ fontSize: "14px", color: "#777", margin: 0 }}><span style={{ color: "#fff", fontWeight: 600 }}>Zoho</span> &middot; Sep 2022 &ndash; Apr 2023 &middot; 8 mos &middot; On-site</p>
             </div>
-            <span style={{ fontSize: "13px", color: "#555", fontFamily: "var(--font-clash)" }}>02</span>
+            <span style={{ fontSize: "13px", color: "var(--text-secondary)", fontFamily: "var(--font-clash)" }}>02</span>
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginTop: "12px" }}>
-            <div style={{ backgroundColor: "#171717", borderRadius: "14px", padding: "28px", color: "#fff", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+            <div style={{ backgroundColor: "var(--card-dark)", borderRadius: "14px", padding: "28px", color: "#fff", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
               <span style={{ fontFamily: "var(--font-clash)", fontSize: "clamp(2.5rem, 8vw, 4rem)", fontWeight: 700, lineHeight: 1, color: "#fff" }}>{totalExperience.split(" ")[0]}+</span>
-              <span style={{ fontSize: "13px", color: "#666", textTransform: "uppercase", letterSpacing: "0.1em", marginTop: "8px" }}>Years</span>
+              <span style={{ fontSize: "13px", color: "var(--text-secondary)", textTransform: "uppercase", letterSpacing: "0.1em", marginTop: "8px" }}>Years</span>
             </div>
-            <div style={{ backgroundColor: "#171717", borderRadius: "14px", padding: "28px", color: "#fff", display: "flex", flexDirection: "column", justifyContent: "flex-end" }}>
+            <div style={{ backgroundColor: "var(--card-dark)", borderRadius: "14px", padding: "28px", color: "#fff", display: "flex", flexDirection: "column", justifyContent: "flex-end" }}>
               <span style={{ fontFamily: "var(--font-clash)", fontSize: "15px", fontWeight: 600, color: "#ccc" }}>Chennai, India</span>
-              <span style={{ fontSize: "12px", color: "#666", marginTop: "4px" }}>Working globally</span>
+              <span style={{ fontSize: "12px", color: "var(--text-secondary)", marginTop: "4px" }}>Working globally</span>
             </div>
           </div>
         </>
@@ -196,14 +196,14 @@ export default function Experience() {
         /* ── Desktop layout: Grid + Wire + Past role ── */
         <>
           <div className="exp-grid" style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gridTemplateRows: "1fr 1fr", gap: "12px", minHeight: "320px" }}>
-            <div className="exp-card" style={{ gridRow: "1 / 3", backgroundColor: "#171717", borderRadius: "14px", padding: "32px", color: "#fff", display: "flex", flexDirection: "column", justifyContent: "space-between", opacity: 0 }}>
+            <div className="exp-card" style={{ gridRow: "1 / 3", backgroundColor: "var(--card-dark)", borderRadius: "14px", padding: "32px", color: "#fff", display: "flex", flexDirection: "column", justifyContent: "space-between", opacity: 0 }}>
               <div>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "24px" }}>
                   <span style={{ fontSize: "11px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em", padding: "5px 14px", borderRadius: "20px", backgroundColor: "#fff", color: "#111" }}>Current</span>
-                  <span style={{ fontSize: "13px", color: "#555", fontFamily: "var(--font-clash)" }}>01</span>
+                  <span style={{ fontSize: "13px", color: "var(--text-secondary)", fontFamily: "var(--font-clash)" }}>01</span>
                 </div>
                 <h3 style={{ fontFamily: "var(--font-clash)", fontSize: "clamp(1.8rem, 3vw, 2.8rem)", fontWeight: 700, margin: 0, marginBottom: "8px", lineHeight: 1.05 }}>Software Developer</h3>
-                <p style={{ fontFamily: "var(--font-clash)", fontSize: "16px", fontWeight: 500, color: "#999", margin: 0 }}>Fusion Practices (Oracle Partner) &middot; Full-time</p>
+                <p style={{ fontFamily: "var(--font-clash)", fontSize: "16px", fontWeight: 500, color: "var(--text-muted)", margin: 0 }}>Fusion Practices (Oracle Partner) &middot; Full-time</p>
               </div>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginTop: "24px" }}>
                 {["Sep 2023 – Present", fusionDuration, "Hybrid", "Chennai, India"].map((tag) => (
@@ -211,29 +211,29 @@ export default function Experience() {
                 ))}
               </div>
             </div>
-            <div className="exp-card" style={{ backgroundColor: "#171717", borderRadius: "14px", padding: "28px", color: "#fff", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", opacity: 0 }}>
+            <div className="exp-card" style={{ backgroundColor: "var(--card-dark)", borderRadius: "14px", padding: "28px", color: "#fff", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", opacity: 0 }}>
               <span style={{ fontFamily: "var(--font-clash)", fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 700, lineHeight: 1, color: "#fff" }}>{totalExperience.split(" ")[0]}+</span>
-              <span style={{ fontSize: "13px", color: "#666", textTransform: "uppercase", letterSpacing: "0.1em", marginTop: "8px" }}>Years</span>
+              <span style={{ fontSize: "13px", color: "var(--text-secondary)", textTransform: "uppercase", letterSpacing: "0.1em", marginTop: "8px" }}>Years</span>
             </div>
-            <div className="exp-card" style={{ backgroundColor: "#171717", borderRadius: "14px", padding: "28px", color: "#fff", display: "flex", flexDirection: "column", justifyContent: "flex-end", opacity: 0 }}>
+            <div className="exp-card" style={{ backgroundColor: "var(--card-dark)", borderRadius: "14px", padding: "28px", color: "#fff", display: "flex", flexDirection: "column", justifyContent: "flex-end", opacity: 0 }}>
               <span style={{ fontFamily: "var(--font-clash)", fontSize: "15px", fontWeight: 600, color: "#ccc" }}>Chennai, India</span>
-              <span style={{ fontSize: "12px", color: "#666", marginTop: "4px" }}>Working globally</span>
+              <span style={{ fontSize: "12px", color: "var(--text-secondary)", marginTop: "4px" }}>Working globally</span>
             </div>
           </div>
 
           <div className="exp-wire-wrap" style={{ padding: "0 0 0 60px", height: "40px", position: "relative", marginTop: "-1px" }}>
-            <div className="exp-wire" style={{ position: "absolute", left: "60px", top: 0, bottom: 0, width: "2px", backgroundColor: "#444", transformOrigin: "top" }} />
-            <div className="exp-dot" style={{ position: "absolute", left: "55px", bottom: "-5px", width: "12px", height: "12px", borderRadius: "50%", backgroundColor: "#666", border: "2px solid var(--bg, #f5f5f0)", zIndex: 4 }} />
+            <div className="exp-wire" style={{ position: "absolute", left: "60px", top: 0, bottom: 0, width: "2px", backgroundColor: "var(--border-dark)", transformOrigin: "top" }} />
+            <div className="exp-dot" style={{ position: "absolute", left: "55px", bottom: "-5px", width: "12px", height: "12px", borderRadius: "50%", backgroundColor: "var(--text-secondary)", border: "2px solid var(--bg)", zIndex: 4 }} />
           </div>
 
-          <div className="exp-card exp-past-card" style={{ backgroundColor: "#171717", borderRadius: "14px", padding: "28px 32px", color: "#fff", display: "flex", justifyContent: "space-between", alignItems: "center", opacity: 0, maxWidth: "calc(66.666% - 6px)" }}>
+          <div className="exp-card exp-past-card" style={{ backgroundColor: "var(--card-dark)", borderRadius: "14px", padding: "28px 32px", color: "#fff", display: "flex", justifyContent: "space-between", alignItems: "center", opacity: 0, maxWidth: "calc(66.666% - 6px)" }}>
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "8px" }}>
                 <h3 style={{ fontFamily: "var(--font-clash)", fontSize: "20px", fontWeight: 700, margin: 0, lineHeight: 1.1 }}>Software Developer</h3>
               </div>
               <p style={{ fontSize: "14px", color: "#777", margin: 0 }}><span style={{ color: "#fff", fontWeight: 600 }}>Zoho</span> &middot; Sep 2022 &ndash; Apr 2023 &middot; 8 mos &middot; On-site</p>
             </div>
-            <span style={{ fontSize: "13px", color: "#555", fontFamily: "var(--font-clash)" }}>02</span>
+            <span style={{ fontSize: "13px", color: "var(--text-secondary)", fontFamily: "var(--font-clash)" }}>02</span>
           </div>
         </>
       )}

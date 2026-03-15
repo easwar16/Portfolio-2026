@@ -232,8 +232,8 @@ export default function TechStack() {
           display: "grid",
           gridTemplateColumns: `repeat(${SECONDARY_TOOLS.length}, minmax(0, 1fr))`,
           gridTemplateRows: "auto auto",
-          borderTop: "1px solid #e0e0e0",
-          borderBottom: "1px solid #e0e0e0",
+          borderTop: "1px solid var(--border-light)",
+          borderBottom: "1px solid var(--border-light)",
           position: "relative",
         }}
         onMouseLeave={() => {
@@ -245,7 +245,7 @@ export default function TechStack() {
             gsap.to(el, { color: "var(--text)", duration: 0.15, overwrite: true });
           });
           document.querySelectorAll<HTMLElement>(".tool-icon").forEach((el) => {
-            el.style.filter = "brightness(0)";
+            el.style.filter = "var(--icon-filter)";
           });
         }}
       >
@@ -258,7 +258,7 @@ export default function TechStack() {
             left: 0,
             width: 0,
             height: 0,
-            backgroundColor: "#111",
+            backgroundColor: "var(--text)",
             borderRadius: "0px",
             opacity: 0,
             pointerEvents: "none",
@@ -282,8 +282,8 @@ export default function TechStack() {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              borderRight: i < 2 ? "1px solid #e0e0e0" : "none",
-              borderBottom: "1px solid #e0e0e0",
+              borderRight: i < 2 ? "1px solid var(--border-light)" : "none",
+              borderBottom: "1px solid var(--border-light)",
               cursor: "pointer",
               position: "relative",
               zIndex: 1,
@@ -312,7 +312,7 @@ export default function TechStack() {
                 gsap.to(el, { color: "var(--text)", duration: 0.2 });
               });
               const label = e.currentTarget.querySelector<HTMLElement>(".tool-label");
-              if (label) gsap.to(label, { color: "#fff", duration: 0.3, delay: 0.05 });
+              if (label) gsap.to(label, { color: "var(--bg)", duration: 0.3, delay: 0.05 });
             }}
           >
             {item.isIcon ? (
@@ -338,7 +338,7 @@ export default function TechStack() {
                 style={{
                   width: "44px",
                   height: "44px",
-                  backgroundColor: "#111",
+                  backgroundColor: "var(--text)",
                   borderRadius: "6px",
                   display: "flex",
                   alignItems: "center",
@@ -350,7 +350,7 @@ export default function TechStack() {
                     fontFamily: "var(--font-clash)",
                     fontSize: "18px",
                     fontWeight: 700,
-                    color: "#fff",
+                    color: "var(--bg)",
                   }}
                 >
                   TS
@@ -372,7 +372,7 @@ export default function TechStack() {
               alignItems: "center",
               justifyContent: "center",
               borderRight:
-                i < SECONDARY_TOOLS.length - 1 ? "1px solid #e0e0e0" : "none",
+                i < SECONDARY_TOOLS.length - 1 ? "1px solid var(--border-light)" : "none",
               cursor: "pointer",
               position: "relative",
               zIndex: 1,
@@ -401,13 +401,13 @@ export default function TechStack() {
                 gsap.to(el, { color: "var(--text)", duration: 0.2 });
               });
               document.querySelectorAll<HTMLElement>(".tool-icon").forEach((el) => {
-                el.style.filter = "brightness(0)";
+                el.style.filter = "var(--icon-filter)";
               });
               const icon = e.currentTarget.querySelector<HTMLElement>(".tool-icon");
-              if (icon) icon.style.filter = "brightness(0) invert(1)";
+              if (icon) icon.style.filter = "var(--icon-filter-hover)";
               // Set text label in this cell to white
               e.currentTarget.querySelectorAll<HTMLElement>(".tool-label").forEach((el) => {
-                gsap.to(el, { color: "#fff", duration: 0.3, delay: 0.05 });
+                gsap.to(el, { color: "var(--bg)", duration: 0.3, delay: 0.05 });
               });
             }}
           >
@@ -422,7 +422,7 @@ export default function TechStack() {
                   width: "22px",
                   height: "22px",
                   objectFit: "contain",
-                  filter: "brightness(0)",
+                  filter: "var(--icon-filter)",
                   transition: "filter 0.3s ease",
                 }}
               />

@@ -254,13 +254,13 @@ export default function Hero({ preloaderDone }: { preloaderDone: boolean }) {
         style={{ position: "relative", zIndex: 1 }}
       >
         {/* Label */}
-        <span className="hero-label mb-8 text-[12px] font-normal tracking-[0.2em] uppercase text-[#6b6b6b] md:mb-10 md:text-[13px]">
+        <span className="hero-label mb-8 text-[12px] font-normal tracking-[0.2em] uppercase text-[var(--text-secondary)] md:mb-10 md:text-[13px]">
           Design Engineer · 2.5 Yrs
         </span>
 
         {/* Headline */}
         <h1
-          className="relative text-center font-semibold uppercase leading-[0.88] tracking-[-0.04em] text-[#111]"
+          className="relative text-center font-semibold uppercase leading-[0.88] tracking-[-0.04em] text-[var(--text)]"
           style={{
             fontFamily: "var(--font-clash)",
             fontSize: "clamp(3.2rem, 11vw, 14rem)",
@@ -285,7 +285,7 @@ export default function Hero({ preloaderDone }: { preloaderDone: boolean }) {
 
         {/* Micro text */}
         <p
-          className="hero-micro mt-8 text-[12px] font-light italic tracking-[0.15em] text-[#6b6b6b] md:mt-10 md:text-[13px]"
+          className="hero-micro mt-8 text-[12px] font-light italic tracking-[0.15em] text-[var(--text-secondary)] md:mt-10 md:text-[13px]"
           style={{ fontFamily: "var(--font-satoshi)" }}
         >
           design-first · build-second
@@ -335,7 +335,7 @@ export default function Hero({ preloaderDone }: { preloaderDone: boolean }) {
           left: "40px",
           right: "40px",
           height: "1px",
-          backgroundColor: "#e0e0e0",
+          backgroundColor: "var(--border-light)",
         }}
       />
     </section>
