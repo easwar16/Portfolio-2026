@@ -214,13 +214,12 @@ export default function WorkPageRoute() {
               top: "12px",
               right: "40px",
               fontFamily: "var(--font-clash)",
-              fontSize: "14px",
-              fontWeight: 600,
-              letterSpacing: "0.08em",
-              color: "var(--text)",
+              fontSize: "clamp(2rem, 5vw, 4rem)",
+              fontWeight: 700,
+              letterSpacing: "-0.02em",
+              color: "#000",
               textTransform: "uppercase",
               margin: 0,
-              opacity: 0.4,
               zIndex: 5,
             }}
           >

@@ -28,10 +28,6 @@ const SECONDARY_TOOLS = [
     icon: "https://cdn.simpleicons.org/postgresql/000000",
   },
   {
-    name: "Drizzle",
-    icon: "https://cdn.simpleicons.org/drizzle/000000",
-  },
-  {
     name: "Vercel",
     icon: "https://cdn.simpleicons.org/vercel/000000",
   },
@@ -234,7 +230,7 @@ export default function TechStack() {
         className="tools-grid"
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(24, 1fr)",
+          gridTemplateColumns: `repeat(${SECONDARY_TOOLS.length}, minmax(0, 1fr))`,
           gridTemplateRows: "auto auto",
           borderTop: "1px solid #e0e0e0",
           borderBottom: "1px solid #e0e0e0",
@@ -273,9 +269,9 @@ export default function TechStack() {
 
         {/* ── Row 1: React | Next.js | TypeScript ── */}
         {[
-          { label: "⚛", span: 8, isIcon: true },
-          { label: "NEXT.JS", span: 8, isNextjs: true },
-          { label: "TS", span: 8, isTS: true },
+          { label: "⚛", span: Math.floor(SECONDARY_TOOLS.length / 3), isIcon: true },
+          { label: "NEXT.JS", span: Math.floor(SECONDARY_TOOLS.length / 3), isNextjs: true },
+          { label: "TS", span: SECONDARY_TOOLS.length - Math.floor(SECONDARY_TOOLS.length / 3) * 2, isTS: true },
         ].map((item, i) => (
           <div
             key={i}
@@ -370,7 +366,7 @@ export default function TechStack() {
             key={tool.name}
             className="tool-cell tool-cell-secondary"
             style={{
-              gridColumn: `span 3`,
+              gridColumn: `span 1`,
               padding: "32px 16px",
               display: "flex",
               alignItems: "center",

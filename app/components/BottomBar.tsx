@@ -147,14 +147,14 @@ export default function BottomBar() {
               color: "#fff",
             }}
           >
-            {/* Thumbnail placeholder */}
+            {/* Thumbnail */}
             <div
               className="nav-thumb"
               style={{
                 width: "72px",
                 height: "72px",
                 borderRadius: "14px",
-                backgroundColor: "#fff",
+                backgroundColor: "#f5f5f0",
                 flexShrink: 0,
                 display: "flex",
                 alignItems: "center",
@@ -162,18 +162,58 @@ export default function BottomBar() {
                 overflow: "hidden",
               }}
             >
-              <span
-                style={{
-                  fontFamily: "var(--font-clash)",
-                  fontSize: "11px",
-                  fontWeight: 600,
-                  color: "#111",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.05em",
-                }}
-              >
-                {item.label}
-              </span>
+              {item.label === "Home" ? (
+                <div style={{ textAlign: "center", padding: "6px" }}>
+                  <p style={{ fontFamily: "var(--font-clash)", fontSize: "4px", fontWeight: 500, color: "#888", margin: 0, letterSpacing: "0.1em", textTransform: "uppercase" }}>
+                    Design Engineer
+                  </p>
+                  <p style={{ fontFamily: "var(--font-clash)", fontSize: "9px", fontWeight: 800, color: "#111", margin: "2px 0 0", lineHeight: 0.9, textTransform: "uppercase", letterSpacing: "-0.03em" }}>
+                    I MAKE<br />THE WEB<br />DO THINGS
+                  </p>
+                </div>
+              ) : item.label === "Work" ? (
+                <div style={{ width: "100%", height: "100%", padding: "6px", display: "flex", flexDirection: "column", gap: "3px" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+                    <span style={{ fontFamily: "var(--font-clash)", fontSize: "10px", fontWeight: 800, color: "#111", lineHeight: 0.85, letterSpacing: "-0.03em", textTransform: "uppercase" }}>WORK</span>
+                    <span style={{ fontFamily: "var(--font-clash)", fontSize: "10px", fontWeight: 800, color: "#111", lineHeight: 0.85, letterSpacing: "-0.03em" }}>&rsquo;26</span>
+                  </div>
+                  <div style={{ display: "flex", gap: "3px", flex: 1, minHeight: 0 }}>
+                    <div style={{ flex: 1, borderRadius: "3px", overflow: "hidden" }}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src="/gfp_banner_portfolio.png" alt="GFP" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                    </div>
+                    <div style={{ flex: 1, borderRadius: "3px", overflow: "hidden" }}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src="/drawflopBanner.png" alt="Drawflow" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                    </div>
+                  </div>
+                </div>
+              ) : item.label === "Lab" ? (
+                <div style={{ width: "100%", height: "100%", padding: "6px", display: "flex", flexDirection: "column", gap: "3px" }}>
+                  <span style={{ fontFamily: "var(--font-clash)", fontSize: "10px", fontWeight: 800, color: "#111", lineHeight: 0.85, letterSpacing: "-0.03em", textTransform: "uppercase" }}>LAB</span>
+                  <div style={{ flex: 1, minHeight: 0, borderRadius: "3px", backgroundColor: "#171717", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1px" }}>
+                      <div style={{ width: "14px", height: "4px", backgroundColor: "#c8a84e", borderRadius: "1px" }} />
+                      <div style={{ width: "16px", height: "4px", backgroundColor: "#b89a40", borderRadius: "1px" }} />
+                      <div style={{ width: "18px", height: "4px", backgroundColor: "#a88c35", borderRadius: "1px" }} />
+                      <div style={{ width: "16px", height: "4px", backgroundColor: "#c8a84e", borderRadius: "1px" }} />
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <span
+                  style={{
+                    fontFamily: "var(--font-clash)",
+                    fontSize: "11px",
+                    fontWeight: 600,
+                    color: "#111",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                  }}
+                >
+                  {item.label}
+                </span>
+              )}
             </div>
 
             <span

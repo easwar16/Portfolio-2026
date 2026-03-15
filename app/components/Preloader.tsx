@@ -44,7 +44,15 @@ export default function Preloader({
   }, []);
 
   useEffect(() => {
-    // Scroll to top and lock scroll during preloader
+    // If already shown this session, skip instantly — no animation, no flash
+    if (sessionStorage.getItem("preloaderShown") === "true") {
+      document.body.style.overflow = "";
+      setVisible(false);
+      onCompleteRef.current();
+      return;
+    }
+
+    // First visit: show full preloader animation
     window.scrollTo(0, 0);
     document.body.style.overflow = "hidden";
 
