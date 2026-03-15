@@ -130,7 +130,7 @@ export default function Footer() {
                   WebkitClipPath: `url(#${clipId})`,
                 }}
               >
-                <div style={{ position: "absolute", inset: 0, pointerEvents: "auto" }}>
+                <div style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
                   <FluidGL />
                 </div>
               </div>
@@ -220,13 +220,26 @@ export default function Footer() {
             Get in touch
           </span>
           <div style={{ position: "relative", zIndex: 5 }}>
-            <span style={{ fontFamily: "var(--font-clash)", fontSize: "22px", fontWeight: 600 }}>
-              {copied ? "Copied!" : "Contact"}
+            <span style={{ fontFamily: "var(--font-clash)", fontSize: "22px", fontWeight: 600, transition: "all 0.3s ease" }}>
+              {copied ? "Copied to clipboard!" : "Contact"}
             </span>
-            <p style={{ fontSize: "11px", color: "rgba(255,255,255,0.35)", margin: "4px 0 0" }}>
-              Click to copy email
+            <p style={{ fontSize: "11px", color: copied ? "rgba(255,255,255,0.6)" : "rgba(255,255,255,0.35)", margin: "4px 0 0", transition: "color 0.3s ease" }}>
+              {copied ? EMAIL : "Click to copy email"}
             </p>
           </div>
+          {/* Copied flash overlay */}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              borderRadius: "inherit",
+              backgroundColor: "rgba(34, 197, 94, 0.15)",
+              opacity: copied ? 1 : 0,
+              transition: "opacity 0.3s ease",
+              pointerEvents: "none",
+              zIndex: 3,
+            }}
+          />
         </button>
 
         {/* Github — grey card */}

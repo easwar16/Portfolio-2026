@@ -41,12 +41,31 @@ export default function Work() {
   const videoWrapRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const triggered = useRef<Record<string, boolean>>({});
   const [mobile, setMobile] = useState(false);
+  const [inView, setInView] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const check = () => setMobile(window.innerWidth <= 768);
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
+  }, []);
+
+  // Lazy load videos when section comes into view
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px" }
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
   }, []);
 
   const handleProjectHover = useCallback((title: string) => {
@@ -103,6 +122,7 @@ export default function Work() {
 
   return (
     <section
+      ref={sectionRef}
       id="work"
       style={{
         padding: mobile ? "60px 16px 60px" : "120px 24px 80px",
@@ -195,7 +215,7 @@ export default function Work() {
                   display: "block",
                 }}
               />
-              {VIDEO_PROJECTS[project.title] && (
+              {inView && VIDEO_PROJECTS[project.title] && (
                 <>
                   {/* Blur overlay — hidden until hover */}
                   <div
