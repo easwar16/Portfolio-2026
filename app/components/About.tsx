@@ -7,13 +7,13 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const HIGHLIGHT_WORDS = new Set([
-  "design", "engineering,", "smooth,", "interactive",
-  "experiences", "motion,", "performance,", "detail,",
-  "digital", "products", "forward-thinking", "brands",
+  "design", "engineering,", "end-to-end", "systems",
+  "interfaces", "infrastructure,", "motion,", "scalability,",
+  "detail,", "digital", "products", "forward-thinking", "brands",
 ]);
 
 const BIO_TEXT =
-  "Passionate about merging design and engineering, I craft smooth, interactive experiences with purpose. With a focus on motion, performance, and detail, I help bring digital products to life for forward-thinking brands around the world.";
+  "Passionate about merging design and engineering, I build end-to-end systems — from the interfaces people touch to the infrastructure that powers them. With a focus on motion, scalability, and detail, I help bring digital products to life for forward-thinking brands around the world.";
 
 const ABOUT_LABELS = ["MYSELF", "EASWAR"];
 
@@ -28,42 +28,69 @@ export default function About() {
     const words = textRef.current.querySelectorAll<HTMLElement>(".about-word");
     if (words.length === 0) return;
 
-    // Random x-only scatter — words slide horizontally into place
-    words.forEach((word) => {
-      const randomX = (Math.random() - 0.5) * 300; // random between -150 and 150
+    const isMobile = window.innerWidth <= 768;
 
+    if (isMobile) {
+      // On mobile: no scatter, just show everything
+      words.forEach((word) => {
+        gsap.set(word, { x: 0, opacity: 1 });
+      });
+      gsap.set(textRef.current, { y: 0 });
+      gsap.set(".about-image", { y: 0 });
+    } else {
+      // Random x-only scatter — words slide horizontally into place
+      words.forEach((word) => {
+        const randomX = (Math.random() - 0.5) * 300;
+
+        gsap.fromTo(
+          word,
+          { x: randomX, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: "#about",
+              start: "top 80%",
+              end: "top 30%",
+              scrub: 1,
+            },
+          }
+        );
+      });
+
+      // Text slides from top to bottom
       gsap.fromTo(
-        word,
-        { x: randomX, opacity: 0 },
+        textRef.current,
+        { y: -200 },
         {
-          x: 0,
-          opacity: 1,
-          ease: "power2.out",
+          y: 0,
+          ease: "none",
           scrollTrigger: {
             trigger: "#about",
             start: "top 80%",
-            end: "top 30%",
-            scrub: 1,
+            end: "top 10%",
+            scrub: 0.3,
           },
         }
       );
-    });
 
-    // Image starts at top (red box) and slides down to center (green box) on scroll
-    gsap.fromTo(
-      ".about-image",
-      { y: -200 },
-      {
-        y: 0,
-        ease: "none",
-        scrollTrigger: {
-          trigger: "#about",
-          start: "top 80%",
-          end: "top 10%",
-          scrub: 0.3,
-        },
-      }
-    );
+      // Image slides down
+      gsap.fromTo(
+        ".about-image",
+        { y: -200 },
+        {
+          y: 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: "#about",
+            start: "top 80%",
+            end: "top 10%",
+            scrub: 0.3,
+          },
+        }
+      );
+    }
 
     return () => ScrollTrigger.getAll().forEach((t) => t.kill());
   }, []);
@@ -111,7 +138,7 @@ export default function About() {
       }}
     >
       {/* ── Text side ── */}
-      <div style={{ flex: "1 1 0%", minWidth: 0, zIndex: 2 }}>
+      <div className="about-text" style={{ flex: "1 1 0%", minWidth: 0, zIndex: 2 }}>
         {/* Label */}
         <p
           style={{
