@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import BottomBar from "../components/BottomBar";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,6 +15,7 @@ interface Project {
   image: string;
   color: string;
   icon?: string;
+  github: string;
 }
 
 const ALL_PROJECTS: Project[] = [
@@ -23,81 +23,81 @@ const ALL_PROJECTS: Project[] = [
     title: "Golden Flop",
     type: "PRODUCT",
     year: "2026",
-    tags: ["NEXT.JS", "SOLANA", "MULTIPLAYER", "REAL-TIME", "MATCHMAKING", "WEBGL"],
+    tags: ["A real-time multiplayer poker game with practice mode, built for fast, casual gameplay and seamless matchmaking."],
     image: "/gfp_banner_portfolio.png",
     color: "#d4c5b0",
     icon: "/gfp_icon.png",
+    github: "https://github.com/easwar16/golden-flop",
   },
   {
-    title: "Project Two",
-    type: "PRODUCT",
-    year: "2025",
-    tags: ["BRAND DESIGN", "STRATEGY", "UX", "UI", "WEB DESIGN", "PRODUCT DESIGN"],
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&h=600&fit=crop",
+    title: "Drawflow",
+    type: "PROJECT",
+    year: "2026",
+    tags: ["DrawFlow is a simple, fast whiteboard for turning ideas into visuals. Sketch diagrams, map out flows, and brainstorm freely with a clean, distraction-free canvas."],
+    image: "/drawflopBanner.png",
     color: "#c8a84e",
-  },
-  {
-    title: "Horizon Dashboard",
-    type: "WEB APP",
-    year: "2025",
-    tags: ["REACT", "TYPESCRIPT", "TAILWIND CSS", "CHARTING", "DASHBOARD", "SAAS"],
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
-    color: "#6366f1",
-  },
-  {
-    title: "Nomad Travel",
-    type: "MOBILE APP",
-    year: "2025",
-    tags: ["REACT NATIVE", "UI DESIGN", "MAPS", "TRAVEL", "BOOKING"],
-    image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&h=600&fit=crop",
-    color: "#22c55e",
-  },
-  {
-    title: "Pulse Fitness",
-    type: "BRAND",
-    year: "2024",
-    tags: ["BRAND IDENTITY", "LOGO", "MOTION DESIGN", "FIGMA", "ILLUSTRATION"],
-    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=600&fit=crop",
-    color: "#ef4444",
-  },
-  {
-    title: "Lunar Studio",
-    type: "PORTFOLIO",
-    year: "2024",
-    tags: ["NEXT.JS", "THREE.JS", "GSAP", "CREATIVE DEV", "WEBGL"],
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop",
-    color: "#8b5cf6",
+    icon: "/penIcon.svg",
+    github: "https://github.com/easwar16/drawflow",
   },
 ];
 
-const EMAIL = "easwarharikaran1610@gmail.com";
 
 export default function WorkPageRoute() {
   const router = useRouter();
-  const pageRef = useRef<HTMLDivElement>(null);
-  const [copied, setCopied] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const blurRef = useRef<HTMLDivElement>(null);
+  const videoWrapRef = useRef<HTMLDivElement>(null);
+  const hasTriggered = useRef(false);
 
-  const handleCopyEmail = async () => {
-    await navigator.clipboard.writeText(EMAIL);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+  const dfVideoRef = useRef<HTMLVideoElement>(null);
+  const dfBlurRef = useRef<HTMLDivElement>(null);
+  const dfVideoWrapRef = useRef<HTMLDivElement>(null);
+  const dfHasTriggered = useRef(false);
+
+  const handleVideoHover = useCallback((
+    videoEl: HTMLVideoElement | null,
+    blurEl: HTMLDivElement | null,
+    wrapEl: HTMLDivElement | null,
+    triggeredRef: React.MutableRefObject<boolean>,
+  ) => {
+    if (triggeredRef.current) return;
+    triggeredRef.current = true;
+    if (!videoEl || !blurEl || !wrapEl) return;
+
+    gsap.to(blurEl, { opacity: 1, duration: 0.4, ease: "power2.out" });
+    gsap.to(wrapEl, { opacity: 1, scale: 1, duration: 0.5, ease: "power3.out", delay: 0.15 });
+    videoEl.play();
+  }, []);
+
+  const handleGFPHover = useCallback(() => {
+    handleVideoHover(videoRef.current, blurRef.current, videoWrapRef.current, hasTriggered);
+  }, [handleVideoHover]);
+
+  const handleDFHover = useCallback(() => {
+    handleVideoHover(dfVideoRef.current, dfBlurRef.current, dfVideoWrapRef.current, dfHasTriggered);
+  }, [handleVideoHover]);
+
+  const horizontalRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  // Hide header on mount
+  useEffect(() => {
+    const header = document.querySelector<HTMLElement>(".site-header");
+    if (header) header.style.display = "none";
+    document.body.style.paddingTop = "0px";
+    return () => {
+      if (header) header.style.display = "";
+      document.body.style.paddingTop = "";
+    };
+  }, []);
 
   /* ── Entrance animation ── */
   useEffect(() => {
-    if (!pageRef.current) return;
-
-    gsap.fromTo(
-      pageRef.current,
-      { y: 60, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.6,
-        ease: "power3.out",
-      }
-    );
-
     gsap.fromTo(
       ".workpage-card",
       { opacity: 0, y: 40 },
@@ -107,71 +107,82 @@ export default function WorkPageRoute() {
         duration: 0.5,
         stagger: 0.08,
         ease: "power2.out",
-        delay: 0.8,
+        delay: 0.3,
       }
     );
   }, []);
 
-  /* ── Hide BottomBar when footer is in view ── */
+  /* ── Horizontal parallax scroll ── */
   useEffect(() => {
-    const footerEl = document.querySelector(".work-footer");
-    if (!footerEl) return;
+    const track = horizontalRef.current;
+    const section = sectionRef.current;
+    if (!track || !section) return;
 
-    ScrollTrigger.create({
-      trigger: footerEl,
-      start: "top bottom-=100",
-      end: "top bottom",
-      onEnter: () => {
-        const bar = document.querySelector(".hero-bottom-bar") as HTMLElement | null;
-        if (bar) gsap.to(bar, { y: 150, opacity: 0, duration: 0.4, ease: "power3.in" });
-      },
-      onLeaveBack: () => {
-        const bar = document.querySelector(".hero-bottom-bar") as HTMLElement | null;
-        if (bar) gsap.to(bar, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" });
-      },
+    // Wait for images to load so dimensions are correct
+    const images = track.querySelectorAll("img");
+    const imagePromises = Array.from(images).map(
+      (img) =>
+        img.complete
+          ? Promise.resolve()
+          : new Promise<void>((resolve) => {
+              img.onload = () => resolve();
+              img.onerror = () => resolve();
+            })
+    );
+
+    let ctx: gsap.Context;
+
+    Promise.all(imagePromises).then(() => {
+      ctx = gsap.context(() => {
+        const getScroll = () => {
+          const lastCard = track.lastElementChild as HTMLElement;
+          if (!lastCard) return Math.max(0, track.scrollWidth - section.offsetWidth);
+          const lastCardCenter = lastCard.offsetLeft + lastCard.offsetWidth / 2;
+          const viewportCenter = section.offsetWidth / 2;
+          return Math.max(0, lastCardCenter - viewportCenter);
+        };
+
+        gsap.to(track, {
+          x: () => -getScroll(),
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: () => `+=${getScroll()}`,
+            pin: true,
+            scrub: 1,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+        });
+
+      }, section);
     });
 
-    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+    return () => ctx?.revert();
   }, []);
 
+
   const handleBack = () => {
+    ScrollTrigger.getAll().forEach((st) => st.kill());
     router.back();
   };
 
   return (
     <>
-      <div ref={pageRef} style={{ opacity: 0 }}>
-        {/* ── Header ── */}
-        <div
-          style={{
-            position: "sticky",
-            top: 0,
-            zIndex: 10,
-            backgroundColor: "var(--bg, #f5f5f0)",
-            borderBottom: "1px solid rgba(0,0,0,0.06)",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              padding: "16px 40px",
-            }}
-          >
-            <h2
-              style={{
-                fontFamily: "var(--font-clash)",
-                fontSize: "20px",
-                fontWeight: 700,
-                color: "var(--text)",
-                margin: 0,
-                textTransform: "uppercase",
-                letterSpacing: "0.02em",
-              }}
-            >
-              All Work
-            </h2>
+      {/* ── Horizontal parallax section ── */}
+      <div
+        ref={sectionRef}
+        style={{
+          overflow: "hidden",
+          position: "relative",
+          height: "100vh",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+          {/* Back button */}
+          <div style={{ padding: "12px 40px 8px", flexShrink: 0 }}>
             <button
               onClick={handleBack}
               style={{
@@ -179,7 +190,7 @@ export default function WorkPageRoute() {
                 border: "none",
                 cursor: "pointer",
                 color: "var(--text)",
-                padding: "8px",
+                padding: "8px 0",
                 display: "flex",
                 alignItems: "center",
                 gap: "6px",
@@ -188,393 +199,197 @@ export default function WorkPageRoute() {
                 fontWeight: 500,
               }}
             >
-              Close
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-              >
-                <line x1="6" y1="6" x2="18" y2="18" />
-                <line x1="6" y1="18" x2="18" y2="6" />
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                <line x1="19" y1="12" x2="5" y2="12" />
+                <polyline points="12 19 5 12 12 5" />
               </svg>
+              Back
             </button>
           </div>
-        </div>
 
-        {/* ── Content ── */}
-        <div style={{ padding: "40px 24px 80px" }}>
-          {/* Section title */}
-          <div
+          {/* Section title — fixed position, doesn't scroll */}
+          <h2
             style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "flex-end",
-              marginBottom: "32px",
+              position: "absolute",
+              top: "12px",
+              right: "40px",
+              fontFamily: "var(--font-clash)",
+              fontSize: "14px",
+              fontWeight: 600,
+              letterSpacing: "0.08em",
+              color: "var(--text)",
+              textTransform: "uppercase",
+              margin: 0,
+              opacity: 0.4,
+              zIndex: 5,
             }}
           >
-            <h2
-              style={{
-                fontFamily: "var(--font-clash)",
-                fontSize: "clamp(3rem, 10vw, 10rem)",
-                fontWeight: 700,
-                lineHeight: 0.85,
-                letterSpacing: "-0.04em",
-                color: "var(--text)",
-                textTransform: "uppercase",
-                margin: 0,
-              }}
-            >
-              WORK
-            </h2>
-            <span
-              style={{
-                fontFamily: "var(--font-clash)",
-                fontSize: "clamp(3rem, 10vw, 10rem)",
-                fontWeight: 700,
-                lineHeight: 0.85,
-                letterSpacing: "-0.04em",
-                color: "var(--text)",
-                margin: 0,
-              }}
-            >
-              &rsquo;26
-            </span>
-          </div>
+            WORK
+          </h2>
 
-          {/* Project grid */}
+          {/* Horizontal track */}
           <div
+            ref={horizontalRef}
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(2, 1fr)",
-              gap: "16px",
+              display: "flex",
+              alignItems: "center",
+              gap: "24px",
+              padding: "0 40px",
+              flex: 1,
+              minHeight: 0,
+              willChange: "transform",
             }}
           >
             {ALL_PROJECTS.map((project) => (
-              <a
+              <div
                 key={project.title}
                 className="workpage-card"
-                href="#"
                 style={{
-                  textDecoration: "none",
-                  color: "#ffffff",
-                  display: "block",
-                  backgroundColor: "#171717",
-                  borderRadius: "14px",
-                  padding: "14px 14px 16px",
-                  opacity: 0,
+                  flexShrink: 0,
+                  alignSelf: "center",
+                  borderRadius: "10px",
+                  overflow: "hidden",
+                  position: "relative",
+                  height: "70vh",
                 }}
+                onMouseEnter={project.title === "Golden Flop" ? handleGFPHover : project.title === "Drawflow" ? handleDFHover : undefined}
               >
-                {/* Image */}
-                <div
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={project.image}
+                  alt={project.title}
                   style={{
-                    width: "100%",
-                    aspectRatio: "16 / 10",
-                    borderRadius: "10px",
-                    border: "3px solid #333333",
-                    overflow: "hidden",
-                    backgroundColor: project.color,
+                    height: "100%",
+                    width: "auto",
+                    objectFit: "cover",
+                    display: "block",
                   }}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      display: "block",
-                    }}
-                  />
-                </div>
-
-                {/* Info row */}
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    marginTop: "14px",
-                    padding: "0 4px",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "10px",
-                    }}
-                  >
-                    {project.icon ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={project.icon}
-                        alt={project.title + " icon"}
-                        style={{
-                          width: "24px",
-                          height: "24px",
-                          borderRadius: "50%",
-                          objectFit: "cover",
-                          flexShrink: 0,
-                        }}
-                      />
-                    ) : (
-                      <div
-                        style={{
-                          width: "24px",
-                          height: "24px",
-                          borderRadius: "50%",
-                          backgroundColor: project.color,
-                          flexShrink: 0,
-                        }}
-                      />
-                    )}
-                    <span
+                />
+                {project.title === "Golden Flop" && (
+                  <>
+                    <div
+                      ref={blurRef}
                       style={{
-                        fontFamily: "var(--font-clash)",
-                        fontSize: "13px",
-                        fontWeight: 700,
-                        textTransform: "uppercase",
-                        letterSpacing: "0.02em",
-                        wordSpacing: "0.15em",
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        backdropFilter: "blur(6px)",
+                        WebkitBackdropFilter: "blur(6px)",
+                        background: "rgba(0, 0, 0, 0.05)",
+                        borderRadius: "inherit",
+                        opacity: 0,
+                      }}
+                    />
+                    <div
+                      ref={videoWrapRef}
+                      style={{
+                        position: "absolute",
+                        top: "10%",
+                        left: "10%",
+                        width: "80%",
+                        height: "80%",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        opacity: 0,
+                        transform: "scale(0.3)",
                       }}
                     >
-                      {project.title}
-                    </span>
-                  </div>
-
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "20px",
-                      fontSize: "13px",
-                      fontWeight: 500,
-                      color: "#999999",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.04em",
-                    }}
-                  >
-                    <span>{project.type}</span>
-                    <span>{project.year}</span>
-                  </div>
-                </div>
-
-                {/* Tags */}
-                <p
-                  style={{
-                    margin: "8px 0 0",
-                    padding: "0 4px",
-                    fontSize: "10px",
-                    fontWeight: 400,
-                    color: "#999999",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.04em",
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  }}
-                >
-                  {project.tags.join(", ")}
-                </p>
-              </a>
+                      <video
+                        ref={videoRef}
+                        src="/videos/goldenflopportfolio.webm"
+                        muted
+                        playsInline
+                        loop
+                        style={{
+                          maxWidth: "100%",
+                          maxHeight: "100%",
+                          objectFit: "contain",
+                          display: "block",
+                          borderRadius: "14px",
+                        }}
+                      />
+                    </div>
+                  </>
+                )}
+                {project.title === "Drawflow" && (
+                  <>
+                    <div
+                      ref={dfBlurRef}
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        backdropFilter: "blur(6px)",
+                        WebkitBackdropFilter: "blur(6px)",
+                        background: "rgba(0, 0, 0, 0.05)",
+                        borderRadius: "inherit",
+                        opacity: 0,
+                      }}
+                    />
+                    <div
+                      ref={dfVideoWrapRef}
+                      style={{
+                        position: "absolute",
+                        top: "10%",
+                        left: "10%",
+                        width: "80%",
+                        height: "80%",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        opacity: 0,
+                        transform: "scale(0.3)",
+                      }}
+                    >
+                      <video
+                        ref={dfVideoRef}
+                        src="/drawflow.webm"
+                        muted
+                        playsInline
+                        loop
+                        style={{
+                          maxWidth: "100%",
+                          maxHeight: "100%",
+                          objectFit: "contain",
+                          display: "block",
+                          borderRadius: "14px",
+                        }}
+                      />
+                    </div>
+                  </>
+                )}
+              </div>
             ))}
           </div>
-        </div>
 
-        {/* ── Bento Footer ── */}
-        <div
-          className="work-footer"
-          style={{
-            padding: "100px 24px 24px",
-            position: "relative",
-            minHeight: "100vh",
-            display: "flex",
-            flexDirection: "column" as const,
-            justifyContent: "flex-end",
-          }}
-        >
+          {/* Scroll indicator */}
           <div
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gridTemplateRows: "200px 200px 200px",
-              gap: "12px",
-              width: "100%",
-              position: "relative",
+              padding: "12px 40px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "8px",
+              color: "var(--text-secondary)",
+              fontSize: "11px",
+              fontFamily: "var(--font-clash)",
+              fontWeight: 500,
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              opacity: 0.4,
+              flexShrink: 0,
             }}
           >
-            {/* Work — large card spanning 2 cols, 2 rows */}
-            <a
-              href="#"
-              onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-              style={{
-                gridColumn: "span 2",
-                gridRow: "span 2",
-                borderRadius: "16px",
-                backgroundColor: "#e5e5e5",
-                display: "flex",
-                alignItems: "flex-end",
-                padding: "28px 32px",
-                textDecoration: "none",
-                color: "var(--text)",
-                transition: "background-color 0.2s ease",
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#d9d9d9"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "#e5e5e5"; }}
-            >
-              <span style={{ fontFamily: "var(--font-clash)", fontSize: "22px", fontWeight: 600 }}>
-                Work
-              </span>
-            </a>
-
-            {/* Lab */}
-            <a
-              href="/#lab"
-              style={{
-                borderRadius: "16px",
-                backgroundColor: "#e5e5e5",
-                display: "flex",
-                alignItems: "flex-end",
-                padding: "28px 32px",
-                textDecoration: "none",
-                color: "var(--text)",
-                transition: "background-color 0.2s ease",
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#d9d9d9"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "#e5e5e5"; }}
-            >
-              <span style={{ fontFamily: "var(--font-clash)", fontSize: "22px", fontWeight: 600 }}>
-                Lab
-              </span>
-            </a>
-
-            {/* Contact */}
-            <button
-              onClick={handleCopyEmail}
-              style={{
-                borderRadius: "16px",
-                backgroundColor: "#e5e5e5",
-                display: "flex",
-                alignItems: "flex-end",
-                padding: "28px 32px",
-                border: "none",
-                cursor: "pointer",
-                color: "var(--text)",
-                transition: "background-color 0.2s ease",
-                textAlign: "left",
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#d9d9d9"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "#e5e5e5"; }}
-            >
-              <span style={{ fontFamily: "var(--font-clash)", fontSize: "22px", fontWeight: 600 }}>
-                {copied ? "Copied to clipboard!" : "Contact"}
-              </span>
-            </button>
-
-            {/* Github */}
-            <a
-              href="https://github.com/easwar16"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                borderRadius: "16px",
-                backgroundColor: "#e5e5e5",
-                display: "flex",
-                alignItems: "flex-end",
-                padding: "28px 32px",
-                textDecoration: "none",
-                color: "var(--text)",
-                transition: "background-color 0.2s ease",
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#d9d9d9"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "#e5e5e5"; }}
-            >
-              <span style={{ fontFamily: "var(--font-clash)", fontSize: "22px", fontWeight: 600 }}>
-                Github
-              </span>
-            </a>
-
-            {/* Twitter / X */}
-            <a
-              href="https://x.com/Easwar_H"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                borderRadius: "16px",
-                backgroundColor: "#e5e5e5",
-                display: "flex",
-                alignItems: "flex-end",
-                padding: "28px 32px",
-                textDecoration: "none",
-                color: "var(--text)",
-                transition: "background-color 0.2s ease",
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#d9d9d9"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "#e5e5e5"; }}
-            >
-              <span style={{ fontFamily: "var(--font-clash)", fontSize: "22px", fontWeight: 600 }}>
-                Twitter / X
-              </span>
-            </a>
-
-            {/* LinkedIn */}
-            <a
-              href="https://www.linkedin.com/in/easwar-harikaran-07764321b/"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                borderRadius: "16px",
-                backgroundColor: "#e5e5e5",
-                display: "flex",
-                alignItems: "flex-end",
-                padding: "28px 32px",
-                textDecoration: "none",
-                color: "var(--text)",
-                transition: "background-color 0.2s ease",
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#d9d9d9"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "#e5e5e5"; }}
-            >
-              <span style={{ fontFamily: "var(--font-clash)", fontSize: "22px", fontWeight: 600 }}>
-                LinkedIn
-              </span>
-            </a>
-
-            {/* Large name watermark */}
-            <div
-              style={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                pointerEvents: "none",
-                zIndex: 1,
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "var(--font-clash)",
-                  fontSize: "clamp(6rem, 15vw, 18rem)",
-                  fontWeight: 700,
-                  color: "var(--text)",
-                  opacity: 0.08,
-                  whiteSpace: "nowrap",
-                  letterSpacing: "-0.04em",
-                }}
-              >
-                Easwar
-              </span>
-            </div>
+            <span>Scroll to explore</span>
+            <span>→</span>
           </div>
         </div>
-      </div>
 
-      <BottomBar />
     </>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -12,40 +12,91 @@ const PROJECTS = [
     title: "Golden Flop",
     type: "PRODUCT",
     year: "2026",
-    tags: ["NEXT.JS", "SOLANA", "MULTIPLAYER", "REAL-TIME", "MATCHMAKING", "WEBGL"],
+    tags: ["A real-time multiplayer poker game with practice mode, built for fast, casual gameplay and seamless matchmaking."],
     image: "/gfp_banner_portfolio.png",
     color: "#d4c5b0",
     icon: "/gfp_icon.png",
+    github: "https://github.com/easwar16/golden-flop",
   },
   {
-    title: "Project Two",
-    type: "PRODUCT",
-    year: "2025",
-    tags: ["BRAND DESIGN", "STRATEGY", "UX", "UI", "WEB DESIGN", "PRODUCT DESIGN"],
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&h=600&fit=crop",
+    title: "Drawflow",
+    type: "PROJECT",
+    year: "2026",
+    tags: ["DrawFlow is a simple, fast whiteboard for turning ideas into visuals. Sketch diagrams, map out flows, and brainstorm freely with a clean, distraction-free canvas."],
+    image: "/drawflopBanner.png",
     color: "#c8a84e",
+    icon: "/penIcon.svg",
+    github: "https://github.com/easwar16/drawflow",
   },
 ];
 
+const VIDEO_PROJECTS: Record<string, string> = {
+  "Golden Flop": "/videos/goldenflopportfolio.webm",
+  "Drawflow": "/drawflow.webm",
+};
+
 export default function Work() {
+  const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
+  const blurRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const videoWrapRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const triggered = useRef<Record<string, boolean>>({});
+  const [mobile, setMobile] = useState(false);
+
   useEffect(() => {
+    const check = () => setMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const handleProjectHover = useCallback((title: string) => {
+    if (triggered.current[title]) return;
+    triggered.current[title] = true;
+
+    const video = videoRefs.current[title];
+    const blur = blurRefs.current[title];
+    const videoWrap = videoWrapRefs.current[title];
+    if (!video || !blur || !videoWrap) return;
+
+    gsap.to(blur, { opacity: 1, duration: 0.4, ease: "power2.out" });
+    gsap.to(videoWrap, { opacity: 1, scale: 1, duration: 0.5, ease: "power3.out", delay: 0.15 });
+    video.play();
+  }, []);
+
+  // Auto-trigger videos on mobile
+  useEffect(() => {
+    if (!mobile) return;
+    const timer = setTimeout(() => {
+      Object.keys(VIDEO_PROJECTS).forEach((title) => handleProjectHover(title));
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [mobile, handleProjectHover]);
+
+  useEffect(() => {
+    const isMobile = window.innerWidth <= 768;
     const cards = document.querySelectorAll(".work-card");
-    gsap.fromTo(
-      cards,
-      { opacity: 0, y: 24 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        stagger: 0.15,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: "#work",
-          start: "top 75%",
-          toggleActions: "play none none none",
-        },
-      }
-    );
+
+    if (isMobile) {
+      // On mobile: just show cards immediately
+      gsap.set(cards, { opacity: 1, y: 0 });
+    } else {
+      gsap.fromTo(
+        cards,
+        { opacity: 0, y: 24 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.15,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: "#work",
+            start: "top 75%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    }
 
     return () => ScrollTrigger.getAll().forEach((t) => t.kill());
   }, []);
@@ -54,7 +105,8 @@ export default function Work() {
     <section
       id="work"
       style={{
-        padding: "120px 24px 80px",
+        padding: mobile ? "60px 16px 60px" : "120px 24px 80px",
+        overflow: "hidden",
         position: "relative",
       }}
     >
@@ -98,24 +150,25 @@ export default function Work() {
 
       {/* ── Project grid ── */}
       <div
+        className="work-grid"
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(2, 1fr)",
+          gridTemplateColumns: mobile ? "1fr" : "repeat(2, 1fr)",
           gap: "16px",
         }}
       >
         {PROJECTS.map((project) => (
-          <a
+          <div
             key={project.title}
             className="work-card"
-            href="#"
             style={{
-              textDecoration: "none",
               color: "#ffffff",
               display: "block",
               backgroundColor: "#171717",
               borderRadius: "14px",
               padding: "14px 14px 16px",
+              overflow: "hidden",
+              maxWidth: "100%",
             }}
           >
             {/* Image */}
@@ -127,7 +180,9 @@ export default function Work() {
                 border: "3px solid #333333",
                 overflow: "hidden",
                 backgroundColor: project.color,
+                position: "relative",
               }}
+              onMouseEnter={VIDEO_PROJECTS[project.title] ? () => handleProjectHover(project.title) : undefined}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -140,6 +195,57 @@ export default function Work() {
                   display: "block",
                 }}
               />
+              {VIDEO_PROJECTS[project.title] && (
+                <>
+                  {/* Blur overlay — hidden until hover */}
+                  <div
+                    ref={(el) => { blurRefs.current[project.title] = el; }}
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      height: "100%",
+                      backdropFilter: "blur(6px)",
+                      WebkitBackdropFilter: "blur(6px)",
+                      background: "rgba(0, 0, 0, 0.05)",
+                      borderRadius: "inherit",
+                      opacity: 0,
+                    }}
+                  />
+                  {/* Video — scales up from center */}
+                  <div
+                    ref={(el) => { videoWrapRefs.current[project.title] = el; }}
+                    style={{
+                      position: "absolute",
+                      top: "10%",
+                      left: "10%",
+                      width: "80%",
+                      height: "80%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      opacity: 0,
+                      transform: "scale(0.3)",
+                    }}
+                  >
+                    <video
+                      ref={(el) => { videoRefs.current[project.title] = el; }}
+                      src={VIDEO_PROJECTS[project.title]}
+                      muted
+                      playsInline
+                      loop
+                      style={{
+                        maxWidth: "100%",
+                        maxHeight: "100%",
+                        objectFit: "contain",
+                        display: "block",
+                        borderRadius: "14px",
+                      }}
+                    />
+                  </div>
+                </>
+              )}
             </div>
 
             {/* Info row */}
@@ -170,6 +276,8 @@ export default function Work() {
                       borderRadius: "50%",
                       objectFit: "cover",
                       flexShrink: 0,
+                      backgroundColor: "#fff",
+                      padding: "3px",
                     }}
                   />
                 ) : (
@@ -211,6 +319,24 @@ export default function Work() {
               >
                 <span>{project.type}</span>
                 <span>{project.year}</span>
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  style={{
+                    color: "#999999",
+                    display: "flex",
+                    alignItems: "center",
+                    transition: "color 0.2s ease",
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = "#ffffff"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = "#999999"; }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                  </svg>
+                </a>
               </div>
             </div>
 
@@ -224,14 +350,12 @@ export default function Work() {
                 color: "#999999",
                 textTransform: "uppercase",
                 letterSpacing: "0.04em",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
+                whiteSpace: "normal",
               }}
             >
               {project.tags.join(", ")}
             </p>
-          </a>
+          </div>
         ))}
       </div>
 
@@ -245,7 +369,7 @@ export default function Work() {
           zIndex: 51,
         }}
       >
-        <Link
+        <a
           href="/work"
           style={{
             fontFamily: "var(--font-clash)",
@@ -263,7 +387,7 @@ export default function Work() {
           onMouseLeave={(e) => { e.currentTarget.style.opacity = "1"; }}
         >
           See all →
-        </Link>
+        </a>
       </div>
     </section>
   );

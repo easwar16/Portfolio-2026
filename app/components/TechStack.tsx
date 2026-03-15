@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -24,8 +24,12 @@ const SECONDARY_TOOLS = [
     icon: "https://cdn.worldvectorlogo.com/logos/threejs-1.svg",
   },
   {
-    name: "Supabase",
-    icon: "https://cdn.simpleicons.org/supabase/000000",
+    name: "PostgreSQL",
+    icon: "https://cdn.simpleicons.org/postgresql/000000",
+  },
+  {
+    name: "Drizzle",
+    icon: "https://cdn.simpleicons.org/drizzle/000000",
   },
   {
     name: "Vercel",
@@ -34,6 +38,10 @@ const SECONDARY_TOOLS = [
   {
     name: "Figma",
     icon: "https://cdn.worldvectorlogo.com/logos/figma-icon.svg",
+  },
+  {
+    name: "Docker",
+    icon: "https://cdn.simpleicons.org/docker/000000",
   },
 ];
 
@@ -73,70 +81,90 @@ function SplitLetters({
 }
 
 export default function TechStack() {
+  const [mobile, setMobile] = useState(false);
   useEffect(() => {
+    const check = () => setMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  useEffect(() => {
+    const isMobile = window.innerWidth <= 768;
     const letters = document.querySelectorAll<HTMLElement>(".tech-letter");
 
-    letters.forEach((letter) => {
-      const randX = (Math.random() - 0.5) * 200;
-      const randY = (Math.random() - 0.5) * 150;
-      const randRotate = (Math.random() - 0.5) * 90;
+    if (isMobile) {
+      // On mobile: no scatter, just fade in
+      gsap.set(letters, { x: 0, y: 0, rotation: 0, opacity: 1 });
+    } else {
+      letters.forEach((letter) => {
+        const randX = (Math.random() - 0.5) * 200;
+        const randY = (Math.random() - 0.5) * 150;
+        const randRotate = (Math.random() - 0.5) * 90;
 
-      gsap.set(letter, {
-        x: randX,
-        y: randY,
-        rotation: randRotate,
-        opacity: 0.3,
+        gsap.set(letter, {
+          x: randX,
+          y: randY,
+          rotation: randRotate,
+          opacity: 0.3,
+        });
+
+        gsap.to(letter, {
+          x: 0,
+          y: 0,
+          rotation: 0,
+          opacity: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: "#tech",
+            start: "top 90%",
+            end: "top 30%",
+            scrub: 1,
+          },
+        });
       });
+    }
 
-      gsap.to(letter, {
-        x: 0,
-        y: 0,
-        rotation: 0,
-        opacity: 1,
-        ease: "none",
-        scrollTrigger: {
-          trigger: "#tech",
-          start: "top 90%",
-          end: "top 30%",
-          scrub: 1,
-        },
-      });
-    });
+    if (isMobile) {
+      // On mobile: show everything immediately
+      gsap.set(".tech-label", { opacity: 1, y: 0 });
+      gsap.set(".tool-cell", { opacity: 1, y: 0 });
+    } else {
+      // Label fade in
+      gsap.fromTo(
+        ".tech-label",
+        { opacity: 0, y: 12 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: "#tech",
+            start: "top 50%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
 
-    // Label fade in
-    gsap.fromTo(
-      ".tech-label",
-      { opacity: 0, y: 12 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: "#tech",
-          start: "top 50%",
-          toggleActions: "play none none none",
-        },
-      }
-    );
-
-    // Tool cells stagger in
-    gsap.fromTo(
-      ".tool-cell",
-      { opacity: 0, y: 10 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.5,
-        stagger: 0.06,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: ".tools-grid",
-          start: "top 80%",
-          toggleActions: "play none none none",
-        },
-      }
-    );
+      // Tool cells stagger in
+      gsap.fromTo(
+        ".tool-cell",
+        { opacity: 0, y: 10 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          stagger: 0.06,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".tools-grid",
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    }
 
     return () => ScrollTrigger.getAll().forEach((t) => t.kill());
   }, []);
@@ -144,6 +172,7 @@ export default function TechStack() {
   return (
     <section
       id="tech"
+      className="tech-section"
       style={{
         padding: "120px 40px 0",
         position: "relative",
@@ -168,9 +197,20 @@ export default function TechStack() {
         <span style={{ display: "block" }}>
           <SplitLetters text="MODERN" className="tech-letter" />
         </span>
-        <span style={{ display: "block" }}>
-          <SplitLetters text="TECH STACK" className="tech-letter" />
-        </span>
+        {mobile ? (
+          <>
+            <span style={{ display: "block" }}>
+              <SplitLetters text="TECH" className="tech-letter" />
+            </span>
+            <span style={{ display: "block" }}>
+              <SplitLetters text="STACK" className="tech-letter" />
+            </span>
+          </>
+        ) : (
+          <span style={{ display: "block" }}>
+            <SplitLetters text="TECH STACK" className="tech-letter" />
+          </span>
+        )}
       </h2>
 
       {/* ── Label ── */}
@@ -194,7 +234,7 @@ export default function TechStack() {
         className="tools-grid"
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(21, 1fr)",
+          gridTemplateColumns: "repeat(24, 1fr)",
           gridTemplateRows: "auto auto",
           borderTop: "1px solid #e0e0e0",
           borderBottom: "1px solid #e0e0e0",
@@ -203,10 +243,10 @@ export default function TechStack() {
         onMouseLeave={() => {
           const pill = document.querySelector<HTMLElement>(".tools-pill");
           if (pill) {
-            gsap.to(pill, { opacity: 0, duration: 0.4, ease: "power2.inOut" });
+            gsap.to(pill, { opacity: 0, duration: 0.2, ease: "power2.inOut", overwrite: true });
           }
           document.querySelectorAll<HTMLElement>(".tool-label").forEach((el) => {
-            gsap.to(el, { color: "var(--text)", duration: 0.3 });
+            gsap.to(el, { color: "var(--text)", duration: 0.15, overwrite: true });
           });
           document.querySelectorAll<HTMLElement>(".tool-icon").forEach((el) => {
             el.style.filter = "brightness(0)";
@@ -233,13 +273,13 @@ export default function TechStack() {
 
         {/* ── Row 1: React | Next.js | TypeScript ── */}
         {[
-          { label: "⚛", span: 7, isIcon: true },
-          { label: "NEXT.JS", span: 7, isNextjs: true },
-          { label: "TS", span: 7, isTS: true },
+          { label: "⚛", span: 8, isIcon: true },
+          { label: "NEXT.JS", span: 8, isNextjs: true },
+          { label: "TS", span: 8, isTS: true },
         ].map((item, i) => (
           <div
             key={i}
-            className="tool-cell"
+            className="tool-cell tool-cell-primary"
             style={{
               gridColumn: `span ${item.span}`,
               padding: "60px 0",
@@ -328,7 +368,7 @@ export default function TechStack() {
         {SECONDARY_TOOLS.map((tool, i) => (
           <div
             key={tool.name}
-            className="tool-cell"
+            className="tool-cell tool-cell-secondary"
             style={{
               gridColumn: `span 3`,
               padding: "32px 16px",
@@ -369,6 +409,10 @@ export default function TechStack() {
               });
               const icon = e.currentTarget.querySelector<HTMLElement>(".tool-icon");
               if (icon) icon.style.filter = "brightness(0) invert(1)";
+              // Set text label in this cell to white
+              e.currentTarget.querySelectorAll<HTMLElement>(".tool-label").forEach((el) => {
+                gsap.to(el, { color: "#fff", duration: 0.3, delay: 0.05 });
+              });
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
@@ -387,7 +431,7 @@ export default function TechStack() {
                 }}
               />
               <span
-                className="tool-label"
+                className="tool-label tool-name"
                 style={{
                   fontFamily: "var(--font-clash)",
                   fontSize: "13px",
