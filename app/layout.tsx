@@ -3,9 +3,13 @@ import "./globals.css";
 import Header from "./components/Header";
 
 export const metadata: Metadata = {
-  title: "Easwar · Design Engineer",
+  title: "Easwar",
   description:
     "Design-first developer with 2.5 years of experience building for the web.",
+  icons: {
+    icon: "/favicon.png",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({
