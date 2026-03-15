@@ -328,6 +328,7 @@ export default function Hero({ preloaderDone }: { preloaderDone: boolean }) {
 
       {/* ── Bottom divider ── */}
       <div
+        className="hero-divider"
         style={{
           position: "absolute",
           bottom: 0,

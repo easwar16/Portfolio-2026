@@ -1,10 +1,19 @@
 "use client";
 
-
+import { useEffect, useState } from "react";
 
 export default function Header() {
+  const [mobile, setMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   return (
     <header
+      className="site-header"
       style={{
         position: "fixed",
         top: 0,
@@ -17,15 +26,18 @@ export default function Header() {
       }}
     >
       <div
+        className="header-inner"
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
-          padding: "16px 40px",
+          justifyContent: mobile ? "flex-end" : "space-between",
+          padding: mobile ? "12px 16px" : "16px 40px",
         }}
       >
         {/* Info columns */}
+        {!mobile && (
         <div
+          className="header-info"
           style={{
             display: "flex",
             alignItems: "center",
@@ -110,10 +122,12 @@ export default function Header() {
             </p>
           </div>
         </div>
+        )}
 
         {/* CTA button */}
         <a
           href="#contact"
+          className="header-cta"
           style={{
             backgroundColor: "#111",
             color: "#fff",

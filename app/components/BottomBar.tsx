@@ -7,7 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 const NAV_ITEMS = [
   { label: "Home", href: "#" },
   { label: "Work", href: "#work" },
-  { label: "Lab", href: "#lab" },
+  { label: "Lab", href: "/lab" },
 ];
 
 gsap.registerPlugin(ScrollTrigger);
@@ -33,29 +33,29 @@ export default function BottomBar() {
     const footer = document.querySelector("footer");
     if (!footer || !barRef.current) return;
 
-    ScrollTrigger.create({
-      trigger: footer,
-      start: "top bottom-=100",
-      end: "top bottom",
-      onEnter: () => {
-        gsap.to(barRef.current, {
-          y: 150,
-          opacity: 0,
-          duration: 0.4,
-          ease: "power3.in",
-        });
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          gsap.to(barRef.current, {
+            y: 150,
+            opacity: 0,
+            duration: 0.4,
+            ease: "power3.in",
+          });
+        } else {
+          gsap.to(barRef.current, {
+            y: 0,
+            opacity: 1,
+            duration: 0.4,
+            ease: "power3.out",
+          });
+        }
       },
-      onLeaveBack: () => {
-        gsap.to(barRef.current, {
-          y: 0,
-          opacity: 1,
-          duration: 0.4,
-          ease: "power3.out",
-        });
-      },
-    });
+      { threshold: 0.05 }
+    );
 
-    return () => ScrollTrigger.killAll();
+    observer.observe(footer);
+    return () => observer.disconnect();
   }, []);
 
   /* ── Expand / Collapse ── */
@@ -149,6 +149,7 @@ export default function BottomBar() {
           >
             {/* Thumbnail placeholder */}
             <div
+              className="nav-thumb"
               style={{
                 width: "72px",
                 height: "72px",
@@ -200,6 +201,7 @@ export default function BottomBar() {
 
       {/* ── Bottom info row (always visible) ── */}
       <div
+        className="bottom-bar-inner"
         style={{
           display: "flex",
           alignItems: "center",
@@ -209,6 +211,7 @@ export default function BottomBar() {
       >
         {/* Avatar */}
         <div
+          className="bottom-bar-avatar"
           style={{
             width: "48px",
             height: "48px",
