@@ -167,15 +167,15 @@ export default function BottomBar() {
                   <p style={{ fontFamily: "var(--font-clash)", fontSize: "4px", fontWeight: 500, color: "#888", margin: 0, letterSpacing: "0.1em", textTransform: "uppercase" }}>
                     Design Engineer
                   </p>
-                  <p style={{ fontFamily: "var(--font-clash)", fontSize: "9px", fontWeight: 800, color: "#111", margin: "2px 0 0", lineHeight: 0.9, textTransform: "uppercase", letterSpacing: "-0.03em" }}>
+                  <p style={{ fontFamily: "var(--font-clash)", fontSize: "9px", fontWeight: 800, color: "var(--text)", margin: "2px 0 0", lineHeight: 0.9, textTransform: "uppercase", letterSpacing: "-0.03em" }}>
                     I MAKE<br />THE WEB<br />DO THINGS
                   </p>
                 </div>
               ) : item.label === "Work" ? (
                 <div style={{ width: "100%", height: "100%", padding: "6px", display: "flex", flexDirection: "column", gap: "3px" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
-                    <span style={{ fontFamily: "var(--font-clash)", fontSize: "10px", fontWeight: 800, color: "#111", lineHeight: 0.85, letterSpacing: "-0.03em", textTransform: "uppercase" }}>WORK</span>
-                    <span style={{ fontFamily: "var(--font-clash)", fontSize: "10px", fontWeight: 800, color: "#111", lineHeight: 0.85, letterSpacing: "-0.03em" }}>&rsquo;26</span>
+                    <span style={{ fontFamily: "var(--font-clash)", fontSize: "10px", fontWeight: 800, color: "var(--text)", lineHeight: 0.85, letterSpacing: "-0.03em", textTransform: "uppercase" }}>WORK</span>
+                    <span style={{ fontFamily: "var(--font-clash)", fontSize: "10px", fontWeight: 800, color: "var(--text)", lineHeight: 0.85, letterSpacing: "-0.03em" }}>&rsquo;26</span>
                   </div>
                   <div style={{ display: "flex", gap: "3px", flex: 1, minHeight: 0 }}>
                     <div style={{ flex: 1, borderRadius: "3px", overflow: "hidden" }}>
@@ -190,7 +190,7 @@ export default function BottomBar() {
                 </div>
               ) : item.label === "Lab" ? (
                 <div style={{ width: "100%", height: "100%", padding: "6px", display: "flex", flexDirection: "column", gap: "3px" }}>
-                  <span style={{ fontFamily: "var(--font-clash)", fontSize: "10px", fontWeight: 800, color: "#111", lineHeight: 0.85, letterSpacing: "-0.03em", textTransform: "uppercase" }}>LAB</span>
+                  <span style={{ fontFamily: "var(--font-clash)", fontSize: "10px", fontWeight: 800, color: "var(--text)", lineHeight: 0.85, letterSpacing: "-0.03em", textTransform: "uppercase" }}>LAB</span>
                   <div style={{ flex: 1, minHeight: 0, borderRadius: "3px", backgroundColor: "#171717", display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1px" }}>
                       <div style={{ width: "14px", height: "4px", backgroundColor: "#c8a84e", borderRadius: "1px" }} />
@@ -206,7 +206,7 @@ export default function BottomBar() {
                     fontFamily: "var(--font-clash)",
                     fontSize: "11px",
                     fontWeight: 600,
-                    color: "#111",
+                    color: "var(--text)",
                     textTransform: "uppercase",
                     letterSpacing: "0.05em",
                   }}
