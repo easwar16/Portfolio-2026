@@ -93,6 +93,16 @@ export default function TechStack() {
       // On mobile: no scatter, just fade in
       gsap.set(letters, { x: 0, y: 0, rotation: 0, opacity: 1 });
     } else {
+      // Single timeline with one ScrollTrigger instead of one per letter
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#tech",
+          start: "top 90%",
+          end: "top 30%",
+          scrub: 0.5,
+        },
+      });
+
       letters.forEach((letter) => {
         const randX = (Math.random() - 0.5) * 200;
         const randY = (Math.random() - 0.5) * 150;
@@ -103,21 +113,14 @@ export default function TechStack() {
           y: randY,
           rotation: randRotate,
           opacity: 0.3,
+          force3d: true,
         });
 
-        gsap.to(letter, {
-          x: 0,
-          y: 0,
-          rotation: 0,
-          opacity: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: "#tech",
-            start: "top 90%",
-            end: "top 30%",
-            scrub: 1,
-          },
-        });
+        tl.to(
+          letter,
+          { x: 0, y: 0, rotation: 0, opacity: 1, ease: "none", force3d: true },
+          0
+        );
       });
     }
 
@@ -241,8 +244,10 @@ export default function TechStack() {
           if (pill) {
             gsap.to(pill, { opacity: 0, duration: 0.2, ease: "power2.inOut", overwrite: true });
           }
+          // Kill any pending label tweens, then reset instantly
+          gsap.killTweensOf(".tool-label");
           document.querySelectorAll<HTMLElement>(".tool-label").forEach((el) => {
-            gsap.to(el, { color: "var(--text)", duration: 0.15, overwrite: true });
+            gsap.set(el, { color: "var(--text)" });
           });
           document.querySelectorAll<HTMLElement>(".tool-icon").forEach((el) => {
             el.style.filter = "var(--icon-filter)";
@@ -263,7 +268,7 @@ export default function TechStack() {
             opacity: 0,
             pointerEvents: "none",
             zIndex: 0,
-            willChange: "transform, width, height, border-radius",
+            willChange: "transform, opacity",
           }}
         />
 
@@ -297,8 +302,8 @@ export default function TechStack() {
               const gridRect = grid.getBoundingClientRect();
 
               gsap.to(pill, {
-                left: cellRect.left - gridRect.left,
-                top: cellRect.top - gridRect.top,
+                x: cellRect.left - gridRect.left,
+                y: cellRect.top - gridRect.top,
                 width: cellRect.width,
                 height: cellRect.height,
                 borderRadius: "12px",
@@ -306,13 +311,19 @@ export default function TechStack() {
                 duration: 0.5,
                 ease: "power3.out",
                 overwrite: true,
+                force3d: true,
               });
 
+              // Kill all pending label tweens to prevent race conditions
+              gsap.killTweensOf(".tool-label");
               document.querySelectorAll<HTMLElement>(".tool-label").forEach((el) => {
-                gsap.to(el, { color: "var(--text)", duration: 0.2 });
+                gsap.set(el, { color: "var(--text)" });
+              });
+              document.querySelectorAll<HTMLElement>(".tool-icon").forEach((el) => {
+                el.style.filter = "var(--icon-filter)";
               });
               const label = e.currentTarget.querySelector<HTMLElement>(".tool-label");
-              if (label) gsap.to(label, { color: "var(--bg)", duration: 0.3, delay: 0.05 });
+              if (label) gsap.set(label, { color: "var(--bg)" });
             }}
           >
             {item.isIcon ? (
@@ -386,8 +397,8 @@ export default function TechStack() {
               const gridRect = grid.getBoundingClientRect();
 
               gsap.to(pill, {
-                left: cellRect.left - gridRect.left,
-                top: cellRect.top - gridRect.top,
+                x: cellRect.left - gridRect.left,
+                y: cellRect.top - gridRect.top,
                 width: cellRect.width,
                 height: cellRect.height,
                 borderRadius: "8px",
@@ -395,19 +406,21 @@ export default function TechStack() {
                 duration: 0.5,
                 ease: "power3.out",
                 overwrite: true,
+                force3d: true,
               });
 
+              // Kill all pending label tweens to prevent race conditions
+              gsap.killTweensOf(".tool-label");
               document.querySelectorAll<HTMLElement>(".tool-label").forEach((el) => {
-                gsap.to(el, { color: "var(--text)", duration: 0.2 });
+                gsap.set(el, { color: "var(--text)" });
               });
               document.querySelectorAll<HTMLElement>(".tool-icon").forEach((el) => {
                 el.style.filter = "var(--icon-filter)";
               });
               const icon = e.currentTarget.querySelector<HTMLElement>(".tool-icon");
               if (icon) icon.style.filter = "var(--icon-filter-hover)";
-              // Set text label in this cell to white
               e.currentTarget.querySelectorAll<HTMLElement>(".tool-label").forEach((el) => {
-                gsap.to(el, { color: "var(--bg)", duration: 0.3, delay: 0.05 });
+                gsap.set(el, { color: "var(--bg)" });
               });
             }}
           >
