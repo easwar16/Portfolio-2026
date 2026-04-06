@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -19,8 +19,8 @@ const ABOUT_LABELS = ["MYSELF", "EASWAR"];
 
 export default function About() {
   const textRef = useRef<HTMLParagraphElement>(null);
-  const [labelIndex, setLabelIndex] = useState(0);
   const labelRef = useRef<HTMLSpanElement>(null);
+  const labelIndexRef = useRef(0);
 
   useEffect(() => {
     if (!textRef.current) return;
@@ -31,32 +31,26 @@ export default function About() {
     const isMobile = window.innerWidth <= 768;
 
     if (isMobile) {
-      // On mobile: no scatter, just show everything
       words.forEach((word) => {
         gsap.set(word, { x: 0, opacity: 1 });
       });
       gsap.set(textRef.current, { y: 0 });
       gsap.set(".about-image", { y: 0 });
     } else {
-      // Random x-only scatter — words slide horizontally into place
+      // Single timeline with one ScrollTrigger for all words
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#about",
+          start: "top 80%",
+          end: "top 30%",
+          scrub: 0.5,
+        },
+      });
+
       words.forEach((word) => {
         const randomX = (Math.random() - 0.5) * 300;
-
-        gsap.fromTo(
-          word,
-          { x: randomX, opacity: 0 },
-          {
-            x: 0,
-            opacity: 1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: "#about",
-              start: "top 80%",
-              end: "top 30%",
-              scrub: 1,
-            },
-          }
-        );
+        gsap.set(word, { x: randomX, opacity: 0, force3d: true });
+        tl.to(word, { x: 0, opacity: 1, ease: "power2.out", force3d: true }, 0);
       });
 
       // Text slides from top to bottom
@@ -66,6 +60,7 @@ export default function About() {
         {
           y: 0,
           ease: "none",
+          force3d: true,
           scrollTrigger: {
             trigger: "#about",
             start: "top 80%",
@@ -82,6 +77,7 @@ export default function About() {
         {
           y: 0,
           ease: "none",
+          force3d: true,
           scrollTrigger: {
             trigger: "#about",
             start: "top 80%",
@@ -95,7 +91,7 @@ export default function About() {
     return () => ScrollTrigger.getAll().forEach((t) => t.kill());
   }, []);
 
-  // Rotating label animation
+  // Rotating label — no React re-renders, direct DOM update
   useEffect(() => {
     const interval = setInterval(() => {
       if (!labelRef.current) return;
@@ -105,17 +101,19 @@ export default function About() {
         opacity: 0,
         duration: 0.3,
         ease: "power2.in",
+        force3d: true,
         onComplete: () => {
-          setLabelIndex((prev) => (prev + 1) % ABOUT_LABELS.length);
-          if (labelRef.current) {
-            gsap.set(labelRef.current, { yPercent: 100, opacity: 0 });
-            gsap.to(labelRef.current, {
-              yPercent: 0,
-              opacity: 1,
-              duration: 0.3,
-              ease: "power2.out",
-            });
-          }
+          labelIndexRef.current =
+            (labelIndexRef.current + 1) % ABOUT_LABELS.length;
+
+          if (!labelRef.current) return;
+          labelRef.current.textContent = ABOUT_LABELS[labelIndexRef.current];
+
+          gsap.fromTo(
+            labelRef.current,
+            { yPercent: 100, opacity: 0 },
+            { yPercent: 0, opacity: 1, duration: 0.3, ease: "power2.out", force3d: true }
+          );
         },
       });
     }, 2500);
@@ -155,9 +153,9 @@ export default function About() {
         >
           <span
             ref={labelRef}
-            style={{ display: "inline-block" }}
+            style={{ display: "inline-block", willChange: "transform, opacity" }}
           >
-            {ABOUT_LABELS[labelIndex]}
+            {ABOUT_LABELS[0]}
           </span>
         </p>
 
