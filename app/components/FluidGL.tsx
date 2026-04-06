@@ -447,7 +447,6 @@ export default function FluidGL() {
       }
     }
 
-    let lastTime = Date.now();
     multipleSplats(Math.floor(Math.random() * 20) + 5);
 
     let running = true;
@@ -456,8 +455,8 @@ export default function FluidGL() {
       if (!running) return;
       resizeCanvas();
 
-      const dt = Math.min((Date.now() - lastTime) / 1000, 0.016);
-      lastTime = Date.now();
+      // Fixed timestep: simulation speed stays consistent regardless of framerate
+      const dt = 0.016;
 
       glCtx.viewport(0, 0, textureWidth, textureHeight);
 
