@@ -5,6 +5,7 @@ import FluidGL from "./FluidGL";
 import FluidBackground from "./FluidBackground";
 
 const EMAIL = "easwarharikaran1610@gmail.com";
+const CALENDLY_URL = "https://calendly.com/easwarharikaran1610/30min";
 
 export default function Footer() {
   const [copied, setCopied] = useState(false);
@@ -13,9 +14,10 @@ export default function Footer() {
   const workRef = useRef<HTMLAnchorElement>(null);
   const contactRef = useRef<HTMLButtonElement>(null);
 
-  const handleCopyEmail = async () => {
+  const handleContact = async () => {
     await navigator.clipboard.writeText(EMAIL);
     setCopied(true);
+    window.open(CALENDLY_URL, "_blank", "noopener,noreferrer");
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -210,7 +212,7 @@ export default function Footer() {
         {/* Contact — dark card */}
         <button
           ref={contactRef}
-          onClick={handleCopyEmail}
+          onClick={handleContact}
           className="footer-card footer-card-pad"
           style={{
             borderRadius: "16px",
@@ -232,10 +234,10 @@ export default function Footer() {
           </span>
           <div style={{ position: "relative", zIndex: 5 }}>
             <span style={{ fontFamily: "var(--font-clash)", fontSize: "22px", fontWeight: 600, transition: "all 0.3s ease" }}>
-              {copied ? "Copied to clipboard!" : "Contact"}
+              {copied ? "Email copied!" : "Contact"}
             </span>
             <p style={{ fontSize: "11px", color: copied ? "rgba(255,255,255,0.6)" : "rgba(255,255,255,0.35)", margin: "4px 0 0", transition: "color 0.3s ease" }}>
-              {copied ? EMAIL : "Click to copy email"}
+              {copied ? "Opening Calendly..." : "Book a call"}
             </p>
           </div>
           {/* Copied flash overlay */}

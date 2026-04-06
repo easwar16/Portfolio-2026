@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import ThemeToggle from "./ThemeToggle";
 
 const EMAIL = "easwarharikaran1610@gmail.com";
+const CALENDLY_URL = "https://calendly.com/easwarharikaran1610/30min";
 
 export default function Header() {
   const [mobile, setMobile] = useState(false);
@@ -134,6 +135,7 @@ export default function Header() {
           onClick={async () => {
             await navigator.clipboard.writeText(EMAIL);
             setCopied(true);
+            window.open(CALENDLY_URL, "_blank", "noopener,noreferrer");
             setTimeout(() => setCopied(false), 2000);
           }}
           className="header-cta"
