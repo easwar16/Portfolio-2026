@@ -55,6 +55,7 @@ export default function Preloader({
     // First visit: show full preloader animation
     window.scrollTo(0, 0);
     document.body.style.overflow = "hidden";
+    sessionStorage.setItem("preloaderShown", "true");
 
     // Entrance animation
     gsap.fromTo(
@@ -87,7 +88,7 @@ export default function Preloader({
         width: "100%",
         height: "100%",
         zIndex: 9999,
-        backgroundColor: "#000",
+        backgroundColor: "var(--bg)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -108,7 +109,7 @@ export default function Preloader({
           className="preloader-symbol"
           style={{
             fontSize: "32px",
-            color: "#fff",
+            color: "var(--text)",
             fontWeight: 300,
             lineHeight: 1,
             animation: "symbolFloat 2s ease-in-out infinite",
@@ -123,7 +124,7 @@ export default function Preloader({
           className="preloader-symbol"
           style={{
             fontSize: "32px",
-            color: "#fff",
+            color: "var(--text)",
             fontWeight: 300,
             lineHeight: 1,
             animation: "symbolFloat 2s ease-in-out infinite",
@@ -138,7 +139,7 @@ export default function Preloader({
           className="preloader-symbol"
           style={{
             fontSize: "32px",
-            color: "#fff",
+            color: "var(--text)",
             fontWeight: 300,
             lineHeight: 1,
             animation: "symbolFloat 2s ease-in-out infinite",
@@ -154,7 +155,7 @@ export default function Preloader({
         style={{
           width: "60px",
           height: "1px",
-          backgroundColor: "rgba(255,255,255,0.15)",
+          backgroundColor: "var(--border-light)",
           borderRadius: "1px",
           overflow: "hidden",
         }}
@@ -163,7 +164,7 @@ export default function Preloader({
           style={{
             width: "100%",
             height: "100%",
-            backgroundColor: "rgba(255,255,255,0.5)",
+            backgroundColor: "var(--text-secondary)",
             animation: "loadingBar 1.5s ease-in-out forwards",
           }}
         />

@@ -76,6 +76,16 @@ body {
   color: var(--text);
 }
 
+/* ── Hero elements hidden by default — GSAP reveals them ── */
+.hero-label,
+.hero-line,
+.hero-micro,
+.hero-bottom-bar,
+.scroll-hint {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
 @keyframes loadingBar {
   0% {
     transform: scaleX(0);

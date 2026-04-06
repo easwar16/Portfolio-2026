@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         {/* Fontshare — Clash Display (headlines) + Satoshi (body) */}
         <link
@@ -29,7 +29,7 @@ export default function RootLayout({
       <body>
         <script
           dangerouslySetInnerHTML={{
-            __html: `window.history.scrollRestoration='manual';window.scrollTo(0,0);`,
+            __html: `window.history.scrollRestoration='manual';window.scrollTo(0,0);(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.setAttribute('data-theme','dark')}}catch(e){}})();`,
           }}
         />
         <Header />

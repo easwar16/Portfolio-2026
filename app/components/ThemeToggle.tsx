@@ -5,12 +5,10 @@ import { useEffect, useState } from "react";
 export default function ThemeToggle() {
   const [dark, setDark] = useState(false);
 
+  // Sync React state with the theme already applied by the inline script in layout.tsx
   useEffect(() => {
-    const saved = localStorage.getItem("theme");
-    if (saved === "dark" || (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
-      setDark(true);
-      document.documentElement.setAttribute("data-theme", "dark");
-    }
+    const current = document.documentElement.getAttribute("data-theme");
+    setDark(current === "dark");
   }, []);
 
   const toggle = () => {
