@@ -230,14 +230,14 @@ export default function Footer() {
           }}
         >
           <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)", textTransform: "uppercase", letterSpacing: "0.1em", position: "relative", zIndex: 5 }}>
-            Get in touch
+            Available now
           </span>
           <div style={{ position: "relative", zIndex: 5 }}>
             <span style={{ fontFamily: "var(--font-clash)", fontSize: "22px", fontWeight: 600, transition: "all 0.3s ease" }}>
-              {copied ? "Email copied!" : "Contact"}
+              {copied ? "Email copied!" : "Start a project"}
             </span>
             <p style={{ fontSize: "11px", color: copied ? "rgba(255,255,255,0.6)" : "rgba(255,255,255,0.35)", margin: "4px 0 0", transition: "color 0.3s ease" }}>
-              {copied ? "Opening Calendly..." : "Book a call"}
+              {copied ? "Opening Calendly..." : "Email me · 24h reply"}
             </p>
           </div>
           {/* Copied flash overlay */}

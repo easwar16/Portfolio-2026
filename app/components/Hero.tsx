@@ -35,7 +35,7 @@ function SplitText({ text, className }: { text: string; className?: string }) {
   );
 }
 
-const ROTATING_WORDS = ["DO THINGS", "PERFORM", "REACT", "FEEL ALIVE"];
+const ROTATING_WORDS = ["SELL", "CONVERT", "PERFORM", "SCALE"];
 
 export default function Hero({ preloaderDone }: { preloaderDone: boolean }) {
   const sectionRef = useRef<HTMLElement>(null);
@@ -263,7 +263,7 @@ export default function Hero({ preloaderDone }: { preloaderDone: boolean }) {
       >
         {/* Label */}
         <span className="hero-label mb-8 text-[12px] font-normal tracking-[0.2em] uppercase text-[var(--text-secondary)] md:mb-10 md:text-[13px]">
-          Design Engineer · 3+ Yrs
+          Full-Stack Developer · 3+ Yrs
         </span>
 
         {/* Headline */}
@@ -296,7 +296,7 @@ export default function Hero({ preloaderDone }: { preloaderDone: boolean }) {
           className="hero-micro mt-8 text-[12px] font-light italic tracking-[0.15em] text-[var(--text-secondary)] md:mt-10 md:text-[13px]"
           style={{ fontFamily: "var(--font-satoshi)" }}
         >
-          design-first · build-second
+          engineer-first · ship-fast
         </p>
       </div>
 

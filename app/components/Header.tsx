@@ -9,6 +9,11 @@ const CALENDLY_URL = "https://calendly.com/easwarharikaran1610/30min";
 export default function Header() {
   const [mobile, setMobile] = useState(false);
   const [copied, setCopied] = useState(false);
+  // Current month + year, e.g. "June 2026" — updates automatically
+  const availability = new Date().toLocaleDateString("en-US", {
+    month: "long",
+    year: "numeric",
+  });
   useEffect(() => {
     const check = () => setMobile(window.innerWidth <= 768);
     check();
@@ -123,7 +128,7 @@ export default function Header() {
                 marginTop: "2px",
               }}
             >
-              March 2026
+              {availability}
             </p>
           </div>
         </div>

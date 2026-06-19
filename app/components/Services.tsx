@@ -9,48 +9,48 @@ gsap.registerPlugin(ScrollTrigger);
 const SERVICES = [
   {
     number: "01",
-    title: "Frontend Development",
+    title: "Web Development",
     description:
-      "Crafting fast, responsive, and pixel-perfect web applications. From landing pages to full-scale products, built with clean code and modern frameworks.",
+      "Production websites and web apps, built front to back in React, Next.js, and Node.js. Fast, responsive, and shipped — not just designed.",
     tags: [
       "NEXT.JS",
       "REACT",
+      "NODE.JS",
       "TYPESCRIPT",
       "TAILWIND CSS",
       "PERFORMANCE",
-      "RESPONSIVE DESIGN",
     ],
     image: "https://images.unsplash.com/photo-1607706189992-eae578626c86?w=560&h=440&fit=crop",
     imageColor: "#2a1f1a",
   },
   {
     number: "02",
-    title: "Creative Development",
+    title: "Shopify Integration",
     description:
-      "Bringing interfaces to life with smooth animations, scroll-driven interactions, and immersive effects that make products feel premium and memorable.",
+      "Custom Shopify storefronts wired to live payments and real inventory. Headless builds that look bespoke and start selling from day one.",
     tags: [
-      "GSAP",
-      "FRAMER MOTION",
-      "THREE.JS",
-      "SCROLL ANIMATIONS",
-      "MICRO-INTERACTIONS",
-      "WEBGL",
+      "SHOPIFY",
+      "HEADLESS COMMERCE",
+      "NEXT.JS",
+      "LIVE PAYMENTS",
+      "STOREFRONT API",
+      "LIQUID",
     ],
     image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=560&h=440&fit=crop",
     imageColor: "#1a2a1f",
   },
   {
     number: "03",
-    title: "UI / UX Design",
+    title: "AI Content Production",
     description:
-      "Designing intuitive interfaces and seamless user flows. From wireframes to high-fidelity prototypes, ensuring every interaction is purposeful and effortless.",
+      "AI-generated video and ad creative built to perform — content that drives views and sales. First client reel hit 10K views.",
     tags: [
-      "FIGMA",
-      "PROTOTYPING",
-      "DESIGN SYSTEMS",
-      "USER RESEARCH",
-      "VISUAL DESIGN",
-      "INTERACTION DESIGN",
+      "AI VIDEO",
+      "AD CREATIVE",
+      "SOCIAL CONTENT",
+      "INSTAGRAM",
+      "SCRIPTING",
+      "EDITING",
     ],
     image: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=560&h=440&fit=crop",
     imageColor: "#1a1f2a",
@@ -142,7 +142,7 @@ export default function Services() {
             color: "rgba(255,255,255,0.85)",
           }}
         >
-          Available for <span style={{ color: "#fff", fontWeight: 400, textDecoration: "underline", textUnderlineOffset: "6px", textDecorationThickness: "1px", textDecorationColor: "rgba(255,255,255,0.4)" }}>freelance projects</span> and open to <span style={{ color: "#fff", fontWeight: 400, textDecoration: "underline", textUnderlineOffset: "6px", textDecorationThickness: "1px", textDecorationColor: "rgba(255,255,255,0.4)" }}>full-time roles.</span> I bring a <span style={{ color: "#fff", fontWeight: 400, textDecoration: "underline", textUnderlineOffset: "6px", textDecorationThickness: "1px", textDecorationColor: "rgba(255,255,255,0.4)" }}>design-first approach</span> to <span style={{ color: "#fff", fontWeight: 400, textDecoration: "underline", textUnderlineOffset: "6px", textDecorationThickness: "1px", textDecorationColor: "rgba(255,255,255,0.4)" }}>frontend development</span>, <span style={{ color: "#fff", fontWeight: 400, textDecoration: "underline", textUnderlineOffset: "6px", textDecorationThickness: "1px", textDecorationColor: "rgba(255,255,255,0.4)" }}>creative coding</span>, and <span style={{ color: "#fff", fontWeight: 400, textDecoration: "underline", textUnderlineOffset: "6px", textDecorationThickness: "1px", textDecorationColor: "rgba(255,255,255,0.4)" }}>UI design</span>, turning ideas into polished <span style={{ color: "#fff", fontWeight: 400, textDecoration: "underline", textUnderlineOffset: "6px", textDecorationThickness: "1px", textDecorationColor: "rgba(255,255,255,0.4)" }}>digital experiences</span>.
+<span style={{ color: "#fff", fontWeight: 400, textDecoration: "underline", textUnderlineOffset: "6px", textDecorationThickness: "1px", textDecorationColor: "rgba(255,255,255,0.4)" }}>Available now</span> for freelance projects, starting immediately. I build <span style={{ color: "#fff", fontWeight: 400, textDecoration: "underline", textUnderlineOffset: "6px", textDecorationThickness: "1px", textDecorationColor: "rgba(255,255,255,0.4)" }}>production websites</span> in React and Next.js, integrate <span style={{ color: "#fff", fontWeight: 400, textDecoration: "underline", textUnderlineOffset: "6px", textDecorationThickness: "1px", textDecorationColor: "rgba(255,255,255,0.4)" }}>Shopify storefronts</span> that take live payments, and produce <span style={{ color: "#fff", fontWeight: 400, textDecoration: "underline", textUnderlineOffset: "6px", textDecorationThickness: "1px", textDecorationColor: "rgba(255,255,255,0.4)" }}>AI video content</span> that performs. Tell me what you&rsquo;re building — I&rsquo;ll <span style={{ color: "#fff", fontWeight: 400, textDecoration: "underline", textUnderlineOffset: "6px", textDecorationThickness: "1px", textDecorationColor: "rgba(255,255,255,0.4)" }}>reply within 24 hours</span> with timeline, fit, and next steps.
         </p>
       </div>
 

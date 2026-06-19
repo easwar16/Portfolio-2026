@@ -177,6 +177,7 @@ export default function Experience() {
                 <h3 style={{ fontFamily: "var(--font-clash)", fontSize: "20px", fontWeight: 700, margin: 0, lineHeight: 1.1 }}>Software Developer</h3>
               </div>
               <p style={{ fontSize: "14px", color: "#777", margin: 0 }}><span style={{ color: "#fff", fontWeight: 600 }}>Zoho</span> &middot; Sep 2022 &ndash; Apr 2023 &middot; 8 mos &middot; On-site</p>
+              <p style={{ fontSize: "13px", color: "#999", margin: "10px 0 0", lineHeight: 1.5, maxWidth: "440px" }}>Built and maintained features across web applications, writing production code and collaborating with cross-functional teams to ship reliable, user-facing functionality.</p>
             </div>
             <span style={{ fontSize: "13px", color: "var(--text-secondary)", fontFamily: "var(--font-clash)" }}>02</span>
           </div>
@@ -232,6 +233,7 @@ export default function Experience() {
                 <h3 style={{ fontFamily: "var(--font-clash)", fontSize: "20px", fontWeight: 700, margin: 0, lineHeight: 1.1 }}>Software Developer</h3>
               </div>
               <p style={{ fontSize: "14px", color: "#777", margin: 0 }}><span style={{ color: "#fff", fontWeight: 600 }}>Zoho</span> &middot; Sep 2022 &ndash; Apr 2023 &middot; 8 mos &middot; On-site</p>
+              <p style={{ fontSize: "13px", color: "#999", margin: "10px 0 0", lineHeight: 1.5, maxWidth: "440px" }}>Built and maintained features across web applications, writing production code and collaborating with cross-functional teams to ship reliable, user-facing functionality.</p>
             </div>
             <span style={{ fontSize: "13px", color: "var(--text-secondary)", fontFamily: "var(--font-clash)" }}>02</span>
           </div>

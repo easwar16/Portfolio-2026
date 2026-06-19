@@ -20,6 +20,24 @@ interface Project {
 
 const ALL_PROJECTS: Project[] = [
   {
+    title: "Mad Water Co.",
+    type: "CLIENT",
+    year: "2026",
+    tags: ["Next.js storefront on a Shopify backend, live and processing real sales. Also produced AI-generated ad content for their Instagram; the first reel hit 10K views."],
+    image: "/madwaterco_banner.webp",
+    color: "#1b3a4b",
+    github: "https://madwaterco.com",
+  },
+  {
+    title: "Kasch Media",
+    type: "CLIENT",
+    year: "2026",
+    tags: ["Designed and built from scratch. Full custom design and development, front to back."],
+    image: "/kaschmedia_banner.webp",
+    color: "#2b2b2b",
+    github: "https://kaschmedia.com",
+  },
+  {
     title: "Golden Flop",
     type: "PRODUCT",
     year: "2026",

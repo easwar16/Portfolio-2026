@@ -8,6 +8,18 @@ gsap.registerPlugin(ScrollTrigger);
 
 const SECONDARY_TOOLS = [
   {
+    name: "Node.js",
+    icon: "/icons/node.svg",
+  },
+  {
+    name: "Shopify",
+    icon: "/icons/shopify.svg",
+  },
+  {
+    name: "Solana",
+    icon: "/icons/solana.svg",
+  },
+  {
     name: "GSAP",
     icon: "/icons/gsap.svg",
   },

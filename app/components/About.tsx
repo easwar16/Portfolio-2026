@@ -7,13 +7,13 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const HIGHLIGHT_WORDS = new Set([
-  "design", "engineering,", "end-to-end", "systems",
-  "interfaces", "infrastructure,", "motion,", "scalability,",
-  "detail,", "digital", "products", "forward-thinking", "brands",
+  "full-stack", "production", "React,", "Next.js,", "Node.js,",
+  "e-commerce", "Shopify", "real", "sales,", "Web3", "Solana",
+  "dApp", "Store.",
 ]);
 
 const BIO_TEXT =
-  "Passionate about merging design and engineering, I build end-to-end systems — from the interfaces people touch to the infrastructure that powers them. With a focus on motion, scalability, and detail, I help bring digital products to life for forward-thinking brands around the world.";
+  "I'm a full-stack developer with 3 years of experience building production web products. I work in React, Next.js, and Node.js, front to back. I've built live e-commerce sites with Shopify integration that are processing real sales, and shipped Web3 products on the Solana dApp Store. I design it, build it, and ship it. No handoffs, no fluff.";
 
 const ABOUT_LABELS = ["MYSELF", "EASWAR"];
 
